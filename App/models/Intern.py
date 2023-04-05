@@ -1,6 +1,7 @@
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import UserMixin
 from App.database import db
+from App.models import User, user
 
 class Intern(User):
 
@@ -12,7 +13,7 @@ class Intern(User):
         return{
             'id': self.id,
             'username': self.username
-            'name': self.name
+            # 'name': self.name
         }
 
    
