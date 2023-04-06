@@ -7,12 +7,12 @@
 {% block content %}
     <div class="row">
         <p>
-            This is table is renderd on the Server. Flask gets the data from the database and uses jinja templates to dyanmically render this page when a request is sent to <a href="/users">/users</a>.
-        </p>
+            Login using the form below
+          </p>
     </div>
 
     <div class="row">
-      <form class="col s12" method="POST" action="/users">
+      <form class="col s12" method="POST" action="/loginaction">
         
         <div class="row">
           <div class="input-field col s6">
@@ -32,24 +32,6 @@
         </div> 
 
       </form>
-    </div>
-
-    <div class="row">
-      <table>
-        <thead>
-          <tr>
-            <th>Id</th><th>Username</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for user in users %}
-            <tr>
-                <td>{{user.id}}</td>
-                <td>{{user.username}}</td>
-            </tr>
-          {% endfor %}
-        <tbody>
-      </table>
     </div>
 
 {% endblock %}

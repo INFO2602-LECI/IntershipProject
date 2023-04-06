@@ -2,6 +2,15 @@ from App.models import InternAdmin, Internship
 from App.database import db
 
 
+
+def create_admin(id, username, name):
+    
+    if admin:
+        admin.username = username
+        db.session.add(admin)
+        return db.session.commit()
+    return None
+
 def get_admin(id):
     return InternAdmin.query.get(id)
 
@@ -33,18 +42,38 @@ def create_internship(name, desc, location, datetime, openspots, enrolled)
     db.session.commit()
     return internship
     
+def update_name(id, name):
+    internship = get_internship(id)
+    if internship:
+        internship = update_name(id,name)
+        return internship
+    return None   
+
+def update_desc(id, desc):
+    internship = get_internship(id)
+    if internship:
+        internship = update_desc(id,desc)
+        return internship
+    return None   
+
 def update_location(id, loc):
-    admin = get_admin(id)
-    if admin:
-        admin.username = username
-        db.session.add(admin)
-        return db.session.commit()
+    internship = get_internship(id)
+    if internship:
+        internship = update_location(id,loc)
+        return internship
     return None
-    
-def update_admin(id, username):
-    admin = get_admin(id)
-    if admin:
-        admin.username = username
-        db.session.add(admin)
-        return db.session.commit()
+  
+def update_spots(id, spots):
+    internship = get_internship(id)
+    if internship:
+        internship = update_spots(id, spots)
+        return internship
     return None
+  
+def update_enrolled(id, er):
+    internship = get_internship(id)
+    if internship:
+        internship = update_location(id,loc)
+        return internship
+    return None
+  

@@ -36,7 +36,7 @@ def create_internship(name, desc, location, datetime, openspots, enrolled)
 # Update Controllers
 # --------------------------------------------------------------------------------------
 #Name 
-def update_desc(id, name):
+def update_name(id, name):
     internship = get_internship(id)
     if internship:
         internship.name = name
@@ -63,7 +63,7 @@ def update_location(id, loc):
     return None  
 
 # Open Spots
-def update_location(id, spots):
+def update_spots(id, spots):
     internship = get_internship(id)
     if internship:
         internship.openspots = spots
@@ -72,7 +72,7 @@ def update_location(id, spots):
     return None  
 
 # Enrolled
-def update_location(id, er):
+def update_enrolled(id, er):
     internship = get_internship(id)
     if internship:
         internship.enrolled = er

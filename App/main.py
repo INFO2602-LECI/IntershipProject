@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask_login import LoginManager, current_user
+from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
@@ -15,7 +15,6 @@ from App.controllers import (
 )
 
 from App.views import views
-
 
 def add_views(app):
     for view in views:
@@ -41,6 +40,18 @@ def loadConfig(app, config):
     for key, value in config.items():
         app.config[key] = config[key]
 
+
+
+login_manager = LoginManager()
+@login_manager.user_loader
+def load_user(user_id):
+  return User.query.get(user_id)
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    flash('Unauthorized!')
+    return redirect(url_for('login_page'))
+
 def create_app(config={}):
     app = Flask(__name__, static_url_path='/static')
     CORS(app)
@@ -55,5 +66,7 @@ def create_app(config={}):
     add_views(app)
     init_db(app)
     setup_jwt(app)
+    login_manager.init_app(app)
+    login_manager.login_view = "login_page"
     app.app_context().push()
     return app
