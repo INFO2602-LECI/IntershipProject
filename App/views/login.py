@@ -17,13 +17,15 @@ login_views = Blueprint('login_views', __name__, template_folder='../templates')
 def login():
     return render_template('login.html')
 
-# @login_views.route('/login', methods=['POST'])
-# def loginaction():
-#     data = request.form
-#     token = authenticate(data['username'], data['password'])
-#     if not token:
-#         return jsonify(message='bad username or password given'), 401
-#     return render_template('/login.html')
+@login_views.route('/login', methods=['POST'])
+def loginaction():
+    data = request.form
+    token = authenticate(data['username'], data['password'])
+    if not token:
+        # return jsonify(message='bad username or password given'), 401
+        flash(f"Username or password incorrect!")
+        return render_template('/login.html')
+    return render_template('/home.html')
 
 # @login_views.route('/api/users', methods=['GET'])
 # def get_users_action():
