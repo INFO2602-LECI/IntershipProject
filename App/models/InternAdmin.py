@@ -4,8 +4,6 @@ from App.database import db
 from App.models import User, user
 
 class InternAdmin(User):
-
-
     def __init__(self, username, password, name):
         super().__init__(self, username, password)
         # name =  db.Column(db.String(120), nullable=False, unique=False)
@@ -16,3 +14,4 @@ class InternAdmin(User):
             'username': self.username,
             'name': self.name
         }
+
