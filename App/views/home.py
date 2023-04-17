@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
 from flask_jwt_extended import jwt_required, current_user
+from flask_login import LoginManager, current_user, login_user, login_required, logout_user
+from App.models import InternAdmin, Internship, Intern
 import datetime
 
 from.index import index_views
@@ -16,28 +18,30 @@ home_views = Blueprint('home_views', __name__, template_folder='../templates')
 # Home Page
 #----------------------------------------------------------------------------
 @home_views.route('/home', methods=['GET'])
-@jwt_required()
+# @jwt_required()
+@login_required
 def homepage():
     # internships = get_all_internship()
-    id = current_user.get_id()
-    admin = get_admin(id)
-    return render_template('home.html', admin = admin)
+    id = current_user.get_id()#get current user id
+    admin = get_admin(id)#get the admin object
+    name = admin.name #get admin name
+    return render_template('home.html', admin = name)
 
 # Logout
 # --------------------------------------------------------------------------
-@home_views.route('/home/logout', methods=['POST'])
-@jwt_required()
-def logout():
-    current_user = ''
-    return redirect ('/login')
-
-# @home_views.route("/home/logout", methods=["POST"])
-# @jwt_required()
+# @home_views.route('/home/logout', methods=['POST'])
+# @login_required
+# # @jwt_required()
 # def logout():
-#     jti = get_jwt()["jti"]
-#     jwt_redis_blocklist.set(jti, "", ex=ACCESS_EXPIRES)
+#     current_user = ''
 #     return redirect ('/login')
-    # missing authorization header appeared
+
+@home_views.route("/home/logout", methods=["POST"])
+@login_required
+def logout():
+    logout_user()
+    flash('Logged Out')
+    return redirect('/')
 
 # current error 
 # File "/workspace/IntershipProject/App/controllers/Internship.py", line 10, in get_all_internship
