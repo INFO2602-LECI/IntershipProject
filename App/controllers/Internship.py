@@ -29,7 +29,7 @@ def update_internship(id, username):
 def create_internship(name, desc, location, date_time, openspots, enrolled):
     # datetime(year, month, day, hour, minute, second, microsecond)
     # b = datetime(2022, 12, 28, 23, 55, 59, 342380)
-    internship = Internship(name=name, desc=desc, location=location, openspots = openspots, enrolled = enrolled)
+    internship = Internship(name=name, desc=desc, location=location, openspots = openspots)
     db.session.add(internship)
     db.session.commit()
     return internship

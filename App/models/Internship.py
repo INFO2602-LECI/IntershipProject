@@ -1,5 +1,3 @@
-from werkzeug.security import check_password_hash, generate_password_hash
-from flask_login import UserMixin
 from App.database import db
 from App.models import InternAdmin
 import datetime
@@ -13,13 +11,13 @@ class Internship(db.Model):
     openspots = db.Column(db.Integer, nullable=True)
     enrolled = db.Column(db.Integer, nullable=True)
 
-    def __init__(self, name, desc, location, date_time, openspots, enrolled):
+    def __init__(self, name, desc, location, date_time, openspots):
         self.name = name,
         self.desc= desc
         self.location = location
         self.date_time = date_time
         self.openspots = openspots
-        self.enrolled = enrolled
+        self.enrolled = 0
 
 
     def get_json(self):

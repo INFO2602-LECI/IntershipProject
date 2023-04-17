@@ -1,28 +1,50 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
-{% block page %}Home Page{% endblock %}
+{% block page %}
+Home Page
+{% endblock %}
+
 
 {{ super() }}
 
 {% block content %}
+<div class="input-field col s12" style="display: inline-flex; float: right;">
+  <form class="col s12" method="POST" action="/home/logout">
+  <button class="btn waves-effect waves-light right black" type="submit" name="logout">Logout</button>
+  </form>
+</div>
+
     <div class="row">
         <p>
-            This is table is renderd on the Server. Flask gets the data from the database and uses jinja templates to dyanmically render this page when a request is sent to <a href="/users">/users</a>.
+            Welcome {{admin}}.
         </p>
     </div>
 
     <div class="row">
-      <form class="col s12" method="POST" action="/users">
+      <form class="col s12" method="POST" action="/home">
         
         <!-- <div class="row"> -->
           <div class="input-field col s6">
-            <input placeholder="Username" name="username" type="text" class="validate">
-            <label for="username">Username</label>
+            <input name="name" type="text" class="validate">
+            <label for="Name">Name</label>
           </div>
           <div class="input-field col s6">
-            <input placeholder="password" name="password" type="password" class="validate">
-            <label for="password">Password</label>
+            <input name="desc" type="text" class="validate">
+            <label for="Description">Description</label>
           </div>
+          <div class="input-field col s6">
+            <input name="location" type="text" class="validate">
+            <label for="Location">Location</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="format year, month, day, hour" name="date_time" type="text" class="validate">
+            <label for="Date and Time">Date and Time</label>
+          </div>
+          <div class="input-field col s6">
+            <input name="open_spots" type="text" class="validate">
+            <label for="Open Spots">Open Spots</label>
+          </div>
+          
         <!-- </div> -->
       
         <div class="row">
