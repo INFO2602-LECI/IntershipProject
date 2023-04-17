@@ -1,10 +1,26 @@
 {% extends "layout.html" %}
 {% block title %}Login{% endblock %}
-{% block page %}Login Page{% endblock %}
+{% block page %}
+<nav class="purple">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo center">Login</a>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left">
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/users">Users Jinja</a></li>
+            <li><a href="/static/users">Users JS</a></li>
+        </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
 
-{{ super() }}
 
 {% block content %}
+
+
+  </nav>
     <div class="row">
         <p>
             Login using the form below

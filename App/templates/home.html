@@ -1,18 +1,28 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block page %}
-Home Page
+<nav class="purple">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo center">Home</a>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left">
+            <li><a href="/">Home</a></li>
+            <li><a href="/users">Users Jinja</a></li>
+            <li><a href="/static/users">Users JS</a></li>
+            <li style="margin-left: 800px;">
+              <form class="col s12" method="POST" action="/home/logout"> 
+              <button class="purple" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
+              </form>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
 {% endblock %}
 
 
-{{ super() }}
-
 {% block content %}
-<div class="input-field col s12" style="display: inline-flex; float: right;">
-  <form class="col s12" method="POST" action="/home/logout">
-  <button class="btn waves-effect waves-light right black" type="submit" name="logout">Logout</button>
-  </form>
-</div>
+
 
     <div class="row">
         <p>
@@ -41,7 +51,7 @@ Home Page
             <label for="Date and Time">Date and Time</label>
           </div>
           <div class="input-field col s6">
-            <input name="open_spots" type="text" class="validate">
+            <input name="openspots" type="text" class="validate">
             <label for="Open Spots">Open Spots</label>
           </div>
           

@@ -1,7 +1,11 @@
 from App.models import InternAdmin, Internship
 from App.database import db
 
+
+#InternAdmin Controllers
+# --------------------------------------------------------------------------------
 def create_admin(id, username, name):
+    admin = InternAdmin(username=username, password=password, name=name)
     if admin:
         admin.username = username
         db.session.add(admin)
@@ -37,13 +41,6 @@ def update_admin(id, username):
 
 #Internship Controllers
 # --------------------------------------------------------------------------------
-def create_internship(name, desc, location, date_time, openspots, enrolled):
-    # datetime(year, month, day, hour, minute, second, microsecond)
-    # b = datetime(2022, 12, 28, 23, 55, 59, 342380)
-    internship = Internship(name=name, desc=desc, location=location, date_time = date_time, openspots = openspots)
-    db.session.add(internship)
-    db.session.commit()
-    return internship
     
 def change_name(id, name):
     internship = get_internship(id)

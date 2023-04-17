@@ -33,15 +33,16 @@ def login():
 
 @login_views.route("/login", methods=['POST'])
 def loginaction():
-  data = request.form #get user data
-  admin= InternAdmin.query.filter_by(username= data['username']).first()#get user account
-  if admin:
-    if admin.check_password(password=data['password']):
-      login_user(admin)
-      flash ('Logged in Successfully.')
-      return redirect('/home')
-    else:
-      flash ('Incorrect Password.')
-  else:    
-    flash ('Bad Username or Username Not Found.')
-  return redirect('/login')
+    data = request.form #get user data
+    admin= InternAdmin.query.filter_by(username= data['username']).first()#get user account
+    if admin:
+        if admin.check_password(password=data['password']):
+            token = authenticate(data['username'], data['password'])
+            login_user(admin)
+            flash ('Logged in Successfully.')
+            return redirect('/home')
+        else:
+            flash ('Incorrect Password.')
+    else:    
+        flash ('Bad Username or Username Not Found.')
+    return redirect('/login')

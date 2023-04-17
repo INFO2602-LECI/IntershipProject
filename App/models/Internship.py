@@ -1,6 +1,5 @@
 from App.database import db
-from App.models import InternAdmin
-import datetime
+from datetime import datetime
 
 class Internship(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -8,7 +7,7 @@ class Internship(db.Model):
     desc =  db.Column(db.String(120), nullable=True)
     location = db.Column(db.String(120), nullable=False)
     date_time = db.Column(db.Date, nullable=False)
-    openspots = db.Column(db.Integer, nullable=True)
+    openspots = db.Column(db.Integer, nullable=False)
     enrolled = db.Column(db.Integer, nullable=True)
 
     def __init__(self, name, desc, location, date_time, openspots):

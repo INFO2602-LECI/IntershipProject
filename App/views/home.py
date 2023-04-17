@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, jsonify, request, send_from_direct
 from flask_jwt_extended import jwt_required, current_user
 from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 from App.models import InternAdmin, Internship, Intern
-import datetime
+from datetime import datetime
 
 from.index import index_views
 
@@ -18,7 +18,6 @@ home_views = Blueprint('home_views', __name__, template_folder='../templates')
 # Home Page
 #----------------------------------------------------------------------------
 @home_views.route('/home', methods=['GET'])
-# @jwt_required()
 @login_required
 def homepage():
     # internships = get_all_internship()
@@ -27,15 +26,13 @@ def homepage():
     name = admin.name #get admin name
     return render_template('home.html', admin = name)
 
+# current error 
+# File "/workspace/IntershipProject/App/controllers/Internship.py", line 10, in get_all_internship
+#     return Internship.query.all()
+# AttributeError: module 'App.models.Internship' has no attribute 'query'
+
 # Logout
 # --------------------------------------------------------------------------
-# @home_views.route('/home/logout', methods=['POST'])
-# @login_required
-# # @jwt_required()
-# def logout():
-#     current_user = ''
-#     return redirect ('/login')
-
 @home_views.route("/home/logout", methods=["POST"])
 @login_required
 def logout():
@@ -43,16 +40,12 @@ def logout():
     flash('Logged Out')
     return redirect('/')
 
-# current error 
-# File "/workspace/IntershipProject/App/controllers/Internship.py", line 10, in get_all_internship
-#     return Internship.query.all()
-# AttributeError: module 'App.models.Internship' has no attribute 'query'
     
 @home_views.route('/home', methods=['POST'])
-@jwt_required()
+@login_required
 def create_internship():
     data = request.form
-    internship  = create_internship(data['name'], data['desc'], data['location'], data['datetime'], data['openspots'], data['enrolled'])
+    internship  = create_internship(data['name'], data['desc'], data['location'], data['openspots'], data['date_time'])
     if internship:
         flash(f"Internship {data['name']} created!")
     else:
