@@ -1,11 +1,12 @@
 import os
-from flask import Flask
+from flask import Flask, flash, redirect, url_for
 from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 from flask_uploads import DOCUMENTS, IMAGES, TEXT, UploadSet, configure_uploads
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
+from .models import user, User, InternAdmin, Intern, Internship
 
 
 from App.database import init_db
@@ -49,8 +50,8 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 def unauthorized():
-    flash('Unauthorized!')
-    return redirect(url_for('login_page'))
+    flash(f'Unauthorized!')
+    return redirect('/login')
 
 def create_app(config={}):
     app = Flask(__name__, static_url_path='/static')

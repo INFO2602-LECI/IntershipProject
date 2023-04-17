@@ -2,14 +2,21 @@ from App.models import InternAdmin, Internship
 from App.database import db
 
 
-
+#InternAdmin Controllers
+# --------------------------------------------------------------------------------
 def create_admin(id, username, name):
-    
+    admin = InternAdmin(username=username, password=password, name=name)
     if admin:
         admin.username = username
         db.session.add(admin)
         return db.session.commit()
     return None
+
+def get_admin_by_username(username):
+    return Admin.query.filter_by(username=username).first()
+
+def get_admin_by_name(name):
+    return Admin.query.filter_by(name=name).first()
 
 def get_admin(id):
     return InternAdmin.query.get(id)
@@ -34,46 +41,39 @@ def update_admin(id, username):
 
 #Internship Controllers
 # --------------------------------------------------------------------------------
-def create_internship(name, desc, location, datetime, openspots, enrolled)
-    # datetime(year, month, day, hour, minute, second, microsecond)
-    # b = datetime(2022, 12, 28, 23, 55, 59, 342380)
-    internship = Internship(name=name, desc=desc, location=location, datetime = datetime, openspots = openspots, enrolled = enrolled)
-    db.session.add(internship)
-    db.session.commit()
-    return internship
     
-def update_name(id, name):
+def change_name(id, name):
     internship = get_internship(id)
     if internship:
         internship = update_name(id,name)
         return internship
     return None   
 
-def update_desc(id, desc):
+def change_desc(id, desc):
     internship = get_internship(id)
     if internship:
         internship = update_desc(id,desc)
         return internship
     return None   
 
-def update_location(id, loc):
+def change_location(id, loc):
     internship = get_internship(id)
     if internship:
         internship = update_location(id,loc)
         return internship
     return None
   
-def update_spots(id, spots):
+def change_spots(id, spots):
     internship = get_internship(id)
     if internship:
         internship = update_spots(id, spots)
         return internship
     return None
   
-def update_enrolled(id, er):
+def change_enrolled(id, er):
     internship = get_internship(id)
     if internship:
-        internship = update_location(id,loc)
+        internship = update_enrolled(id,loc)
         return internship
     return None
   
