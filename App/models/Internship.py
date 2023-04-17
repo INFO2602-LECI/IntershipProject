@@ -1,7 +1,8 @@
 from App.database import db
+from flask_login import UserMixin
 from datetime import datetime
 
-class Internship(db.Model):
+class Internship(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name =  db.Column(db.String(120), nullable=False, unique=False)
     desc =  db.Column(db.String(120), nullable=True)
