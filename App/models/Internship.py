@@ -14,7 +14,7 @@ class Internship(db.Model):
     enrolled = db.Column(db.Integer, nullable=True)
 
     def __init__(self, name, desc, location, date_time, openspots, enrolled):
-        self.name = name,
+        self.name = name
         self.desc= desc
         self.location = location
         self.date_time = date_time
@@ -28,6 +28,6 @@ class Internship(db.Model):
             'Description': self.desc,
             'Location': self.location,
             'Date and Time': self.date_time,
-            'Spots Remaing': self.openspots,
+            'Spots Remainng': self.openspots,
             'Enrolled': self.enrolled
         }
