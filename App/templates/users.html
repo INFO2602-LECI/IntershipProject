@@ -1,6 +1,26 @@
 {% extends "layout.html" %}
 {% block title %}App Users{% endblock %}
-{% block page %}App Users{% endblock %}
+
+
+{% block page %}
+<nav class="purple">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo center">user</a>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left">
+            <li><a href="/">User</a></li>
+            <li><a href="/users">Users Jinja</a></li>
+            <li><a href="/static/users">Users JS</a></li>
+            <li style="margin-left: 800px;">
+              <form class="col s12" method="POST" action="/users/logout"> 
+              <button class="purple" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
+              </form>
+            </li>
+        </ul>
+    </div>
+  </div>
+</nav>
+{% endblock %}
 
 {{ super() }}
 
