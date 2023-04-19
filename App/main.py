@@ -6,7 +6,6 @@ from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
-from .models import user, User, InternAdmin, Intern, Internship
 
 
 from App.database import init_db
@@ -14,6 +13,20 @@ from App.database import init_db
 from App.controllers import (
     setup_jwt
 )
+from App.models import (
+    User,
+    InternAdmin,
+    Ship,
+    Intern,
+)
+
+# from App.views import (
+#     home_views,
+#     index_views,
+#     login_views,
+#     signup_views,
+#     user_views,
+# )
 
 from App.views import views
 

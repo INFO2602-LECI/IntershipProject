@@ -6,7 +6,8 @@
     <a href="#!" class="brand-logo center">Home</a>
     <div class="nav-wrapper">
         <ul id="nav-mobile" class="left">
-            <li><a href="/">Home</a></li>
+          <li><a href="/">Welcome</a></li>
+          <li><a href="/home">Home</a></li>
             <li><a href="/users">Users Jinja</a></li>
             <li><a href="/static/users">Users JS</a></li>
             <li style="margin-left: 800px;">
@@ -70,7 +71,7 @@
       <table>
         <thead>
           <tr>
-            <th>Name</th><th>Description</th><th>Location</th><th>Date and Time</th>
+            <th>Name</th><th>Description</th><th>Location</th><th>Date and Time</th><th>Availability</th>
           </tr>
         </thead>
         <tbody>
@@ -79,7 +80,8 @@
                 <td>{{internship.name}}</td>
                 <td>{{internship.desc}}</td>
                 <td>{{internship.location}}</td>
-                <td>{{internship.datetime}}</td>
+                <td>{{internship.date_time}}</td>
+                <td>{{internship.openspots}}</td>
             </tr>
           {% endfor %}
         <tbody>
