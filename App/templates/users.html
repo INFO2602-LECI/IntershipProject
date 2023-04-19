@@ -81,23 +81,6 @@
       </table>
     </div>
 
-    <div class="row">  
-      <table>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Course</th>
-        </tr>
-        {% for intern in interns %}
-            <tr>
-                <td>{{ intern.id }}</td>
-                <td>{{ intern.username }}</td>
-                <td>{{ intern.name }}</td>
-                <td>{{ intern.course }}</td>
-            </tr>
-        {% endfor %}
-      </table>
-    </div>
+  
 
 {% endblock %}
