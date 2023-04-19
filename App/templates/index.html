@@ -1,10 +1,23 @@
 {% extends "layout.html" %}
 {% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+{% block page %}
+<nav class="purple">
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo center">LECI Internship</a>
+      <div class="nav-wrapper">
+          <ul id="nav-mobile" class="left">
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/users">Users Jinja</a></li>
+              <li><a href="/static/users">Users JS</a></li>
+          </ul>
+      </div>
+    </div>
+</nav>
+{% endblock %}
 
-{{ super() }}
 
 {% block content %}
-    <h1>Flask MVC</h1>
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
+    <h1>LECI Internship</h1>
+    <p>Welcome to the LECI Internship</p>
 {% endblock %}

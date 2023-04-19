@@ -1,8 +1,19 @@
 from App.models import Internship
 from App.database import db
-import datetime
+from datetime import datetime
 
-
+#Internship Controllers
+# --------------------------------------------------------------------------------
+def create_internship(name, desc, location, date_time, openspots):
+    internship = Internship(name=name, desc=desc, location=location, date_time = date_time, openspots = openspots)
+    if internship:
+        db.session.add(internship)
+        db.session.commit()
+        return internship
+    return None
+    # datetime(year, month, day, hour, minute, second, microsecond)
+    # b = datetime(2022, 12, 28, 23, 55, 59, 342380)
+    
 def get_internship(id):
     return Internship.query.get(id)
 
@@ -16,23 +27,14 @@ def get_all_internship_json():
     internships = [internship.get_json() for internship in internships]
     return internships
 
-def update_internship(id, username):
+def update_internship_name(id, name):
     internship = get_internship(id)
     if internship:
-        internship.username = username
+        internship.name = name
         db.session.add(internship)
         return db.session.commit()
     return None
 
-#Internship Controllers
-# --------------------------------------------------------------------------------
-def create_internship(name, desc, location, date_time, openspots):
-    # datetime(year, month, day, hour, minute, second, microsecond)
-    # b = datetime(2022, 12, 28, 23, 55, 59, 342380)
-    internship = Internship(name=name, desc=desc, location=location, date_time=date_time, openspots=openspots)
-    db.session.add(internship)
-    db.session.commit()
-    return internship
     
 # Update Controllers
 # --------------------------------------------------------------------------------------

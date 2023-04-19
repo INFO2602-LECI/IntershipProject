@@ -4,7 +4,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( create_user, get_all_users_json, get_all_users )
+from App.controllers import ( create_user, create_admin, get_all_users_json, get_all_users, create_internship, )
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -16,7 +16,8 @@ migrate = get_migrate(app)
 def initialize():
     db.drop_all()
     db.create_all()
-    create_user('bob', 'bobpass', 'bob')
+    create_admin('bob', 'bobpass', 'bobby')
+    # create_internship('First Internship', '', 'UWI', '2023,6,10,8',30)
     print('database intialized')
 
 '''
@@ -33,12 +34,13 @@ user_cli = AppGroup('user', help='User object commands')
 @user_cli.command("create", help="Creates a user")
 @click.argument("username", default="rob")
 @click.argument("password", default="robpass")
-@click.argument("name", default="rob")
+@click.argument("name", default="robert")
 def create_user_command(username, password, name):
-    create_user(username, password, name)
+    create_admin(username, password, name)
     print(f'{username} created!')
 
 # this command will be : flask user create bob bobpass
+
 
 @user_cli.command("list", help="Lists users in the database")
 @click.argument("format", default="string")
