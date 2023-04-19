@@ -4,7 +4,7 @@ from App.database import db
 
 #InternAdmin Controllers
 # --------------------------------------------------------------------------------
-def create_admin(id, username, name):
+def create_admin(username, password, name):
     admin = InternAdmin(username=username, password=password, name=name)
     if admin:
         admin.username = username

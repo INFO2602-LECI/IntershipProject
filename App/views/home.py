@@ -7,11 +7,11 @@ from datetime import datetime
 from.index import index_views
 
 from App.controllers import (
-    authenticate,
     get_admin, 
     create_internship,
     get_all_internship,
     get_all_internship_json,
+    update_internship_name,
 )
 
 home_views = Blueprint('home_views', __name__, template_folder='../templates')
@@ -43,12 +43,14 @@ def logout():
     
 @home_views.route('/home', methods=['POST'])
 @login_required
-def create_internship():
+def make_internship():
     data = request.form
     internship  = create_internship(data['name'], data['desc'], data['location'], data['openspots'], data['date_time'])
+    # internship  = Internship(data['name'], data['desc'], data['location'], data['openspots'], data['date_time'])
     if internship:
         flash(f"Internship {data['name']} created!")
     else:
         flash(f"Internship not created!")
+    return redirect('/home')
 
 

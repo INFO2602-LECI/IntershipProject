@@ -5,8 +5,7 @@ from App.models import User, user
 
 class InternAdmin(User, UserMixin):
     def __init__(self, username, password, name):
-        super().__init__(self, username, password)
-        # name =  db.Column(db.String(120), nullable=False, unique=False)
+        super().__init__(username, password, name)
 
     def get_json(self):
         return{
