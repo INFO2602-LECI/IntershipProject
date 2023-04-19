@@ -35,7 +35,6 @@ def update_internship_name(id, name):
         return db.session.commit()
     return None
 
-
     
 # Update Controllers
 # --------------------------------------------------------------------------------------
