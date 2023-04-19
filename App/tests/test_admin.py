@@ -6,8 +6,8 @@ from App.database import create_db
 from App.models import InternAdmin
 from App.controllers import (
     create_admin,
-    get_all_admins_json,
     authenticate,
+    get_all_admin_json,
     get_admin,
     get_admin_by_username,
     get_admin_by_name,
@@ -63,7 +63,7 @@ def test_authenticate():
     admin = create_admin("bob", "bobpass", "bobby")
     assert authenticate("bob", "bobpass") != None
 
-class InternAdminsIntegrationTests(unittest.TestCase):
+class InternAdminIntegrationTests(unittest.TestCase):
 
     def test_create_admin(self):
         admin = create_admin("rick", "bobpass", "rick")

@@ -34,6 +34,9 @@ def get_all_ship_json():
     ships = [ship.get_json() for ship in ships]
     return ships
 
+def get_ship_by_name(name):
+    return Ship.query.filter_by(name=name).first()
+
 def update_ship_name(id, name):
     ship = get_ship(id)
     if ship:
