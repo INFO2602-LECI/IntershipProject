@@ -9,7 +9,7 @@
           <li><a href="/">Welcome</a></li>
           <li><a href="/home">Home</a></li>
             <li><a href="/users">Users Jinja</a></li>
-            <li style="margin-left: 800px;">
+            <li style="margin-left: 900px;">
               <form class="col s12" method="POST" action="/home/logout"> 
               <button class="blue" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
               </form>
@@ -24,34 +24,33 @@
 {% block content %}
 
 
-    <div class="row">
-        <p>
-            Welcome {{admin}}.
-        </p>
-    </div>
+  <div class="row" style="margin: auto;">
+      <p>
+          Welcome {{admin}}.
+      </p>
+  </div>
 
     
-    <div class="row">
+  <div class="row">
+    <div class="internship data" style="display: inline-block;">
       <!-- scrollbar stuff -->
-      <div class="col m2 list-container collection" style="max-height: 84vh;">
-  
-          <!-- edit to show all pokemon links but have only the selected pokemon as active -->
+      <div class="col m2 list-container collection" style="max-height: 84vh; margin-left: -165px;" >
+
           {% for scroller in scrollers%}
-             {%if scroller.id == chosen.id %}
-             <div class="list-item">
-                 <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item-active" >{{ scroller.name }}</a>
-             </div>
-             {% else %}
-             <div class="list-item">
-                 <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item" >{{ scroller.name }}</a>
-             </div>
-             {% endif %}
+              {%if scroller.id == chosen.id %}
+              <div class="list-item">
+                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item-active" >{{ scroller.name }}</a>
+              </div>
+              {% else %}
+              <div class="list-item" >
+                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item"" >{{ scroller.name }}</a>
+              </div>
+              {% endif %}
           {% endfor %}
-    
       </div>
 
       <!-- Card div has internship info -->
-      <div class="col m5 list-container collection"> 
+      <div class="col m4"> 
         <div class="card" style="padding: 20px;">
           {% if chosen == -1 %}
           {% else %}
@@ -68,41 +67,60 @@
       </div>
 
       <!-- update buttons -->
-      <div class="col m5 list-container collection">
+      <div class="col m6 options" style="width: 65%; display: inline-block;">
         <div class="card" style="padding: 20px; display: inline-block;">
           <table>
             <tr><th>Options</th></tr>
             <!-- options to edit the internship is by row -->
             <tr><td>
-              <form class="col s8" method="POST" action="/update_name">
-                <input name="name" type="text" class="validate">
+              <form class="col s6" method="POST" action="/update_name/{{chosen.id}}">
+                <input name="name" type="text" class="validate" placeholder="CAL Summer 2023">
                 <label for="Rename Internship">Rename Internship</label>
                 <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
               </form>
-            </td></tr>
-
-            <tr><td>
-              <form class="col s8" method="POST" action="/update_desc">
-                <input name="desc" type="text" class="validate">
+              
+              <form class="col s6" method="POST" action="/update_desc/{{chosen.id}}">
+                <input name="desc" type="text" class="validate" placeholder="Internship For Management Students.">
                 <label for="Change Description">Change Description</label>
                 <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
               </form>
             </td></tr>
 
             <tr><td>
-              <form class="col s8" method="POST" action="/update_location">
-                <input name="location" type="text" class="validate">
+              <form class="col s6" method="POST" action="/update_location/{{chosen.id}}">
+                <input name="location" type="text" class="validate" placeholder="Earth">
                 <label for="Change Location">Change Location</label>
                 <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
               </form>
-              </td></tr>
+              
+              <form class="col s6" method="POST" action="/update_datetime/{{chosen.id}}">
+                <input name="dtime type="text" class="validate">
+                <label for="Change Date and Time">Change Date and Time</label>
+                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
+              </form>
+            </td></tr>
 
+            <tr><td> 
+              <form class="col s6" method="POST" action="/update_openspots/{{chosen.id}}">
+                <input name="openspots" type="text" class="validate">
+                <label for="Change Availability">Change Availability</label>
+                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
+              </form> 
+              
+              <form class="col s6" method="DELETE" action="/del_internship/{{chosen.id}}">
+                <p style="margin-left: 30px;">Delete Internship</p>
+                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action"">Delete</button>
+              </form>
+            </td></tr>
+    
           </table>
         </div>
       </div>
     </div>
-      
+  </div>
+    
     <div>
+      <p>Create a new Internship Here.</p>
       <form class="col s10" method="POST" action="/home">
         
         <!-- <div class="row"> -->
@@ -129,7 +147,7 @@
           
         <div class="row">
           <div class="input-field col s12">
-            <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
+            <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
           </div>
         </div> 
 
