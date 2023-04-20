@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Home{% endblock %}
 {% block page %}
-<nav class="purple">
+<nav class="blue">
   <div class="nav-wrapper">
     <a href="#!" class="brand-logo center">Home</a>
     <div class="nav-wrapper">
@@ -9,10 +9,9 @@
           <li><a href="/">Welcome</a></li>
           <li><a href="/home">Home</a></li>
             <li><a href="/users">Users Jinja</a></li>
-            <li><a href="/static/users">Users JS</a></li>
             <li style="margin-left: 800px;">
               <form class="col s12" method="POST" action="/home/logout"> 
-              <button class="purple" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
+              <button class="blue" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
               </form>
             </li>
         </ul>
@@ -31,33 +30,95 @@
         </p>
     </div>
 
+    
     <div class="row">
-      <form class="col s12" method="POST" action="/home">
+      <!-- scrollbar stuff -->
+      <div class="col m2 list-container collection" style="max-height: 84vh;">
+  
+          <!-- edit to show all pokemon links but have only the selected pokemon as active -->
+          {% for scroller in scrollers%}
+             {%if scroller.id == chosen.id %}
+             <div class="list-item">
+                 <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item-active" >{{ scroller.name }}</a>
+             </div>
+             {% else %}
+             <div class="list-item">
+                 <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item" >{{ scroller.name }}</a>
+             </div>
+             {% endif %}
+          {% endfor %}
+    
+      </div>
+
+      <!-- Card div has internship info -->
+      <div class="col m5 list-container collection"> 
+        <div class="card" style="padding: 20px;">
+          {% if chosen == -1 %}
+          {% else %}
+            <span class="card-title">{{chosen.name}} </span>
+            <p>Name: {{ chosen.name }}</p>
+            <p>Description: {{ chosen.desc }}</p>
+            <p>Location: {{ chosen.location }}</p>
+            <p>Date and Time: {{ chosen.date_time }}</p>
+            <p>Availability: {{ chosen.openspots }}</p>
+            <p>Enrollment: {{ chosen.enrolled }}</p>
+
+            {% endif %}
+        </div>
+      </div>
+
+      <!-- update buttons -->
+      <div class="col m5 list-container collection">
+        <div class="card" style="padding: 20px;">
+          <table>
+            <tr><th>Options</th></tr>
+            <!-- options to edit the internship is by row -->
+            <tr><td>
+              <input name="name" type="text" class="validate">
+              <label for="Rename Internship">Rename Internship</label>
+              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+            </td></tr>
+            <tr><td>
+              <input name="desc type="text" class="validate">
+              <label for="Change Description">Change Description</label>
+              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+            </td></tr>
+            <tr><td>
+              <input name="name" type="text" class="validate">
+              <label for="Change Location">Change Location</label>
+              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+            </td></tr>
+
+          </table>
+        </div>
+      </div>
+    </div>
+      
+    <div>
+      <form class="col s10" method="POST" action="/home">
         
         <!-- <div class="row"> -->
-          <div class="input-field col s6">
-            <input name="name" type="text" class="validate">
-            <label for="Name">Name</label>
-          </div>
-          <div class="input-field col s6">
-            <input name="desc" type="text" class="validate">
-            <label for="Description">Description</label>
-          </div>
-          <div class="input-field col s6">
-            <input name="location" type="text" class="validate">
-            <label for="Location">Location</label>
-          </div>
-          <div class="input-field col s6">
-            <input placeholder="format year, month, day, hour" name="date_time" type="text" class="validate">
-            <label for="Date and Time">Date and Time</label>
-          </div>
-          <div class="input-field col s6">
-            <input name="openspots" type="text" class="validate">
-            <label for="Open Spots">Open Spots</label>
-          </div>
+        <div class="input-field col s6">
+          <input name="name" type="text" class="validate">
+          <label for="Name">Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input name="desc" type="text" class="validate">
+          <label for="Description">Description</label>
+        </div>
+        <div class="input-field col s6">
+          <input name="location" type="text" class="validate">
+          <label for="Location">Location</label>
+        </div>
+        <div class="input-field col s6">
+          <input placeholder="format year, month, day, hour" name="date_time" type="text" class="validate">
+          <label for="Date and Time">Date and Time</label>
+        </div>
+        <div class="input-field col s6">
+          <input name="openspots" type="text" class="validate">
+          <label for="Open Spots">Open Spots</label>
+        </div>
           
-        <!-- </div> -->
-      
         <div class="row">
           <div class="input-field col s12">
             <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
@@ -67,7 +128,7 @@
       </form>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <table>
         <thead>
           <tr>
@@ -86,6 +147,7 @@
           {% endfor %}
         <tbody>
       </table>
+    </div> -->
 
   </div>
 
