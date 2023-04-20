@@ -69,25 +69,33 @@
 
       <!-- update buttons -->
       <div class="col m5 list-container collection">
-        <div class="card" style="padding: 20px;">
+        <div class="card" style="padding: 20px; display: inline-block;">
           <table>
             <tr><th>Options</th></tr>
             <!-- options to edit the internship is by row -->
             <tr><td>
-              <input name="name" type="text" class="validate">
-              <label for="Rename Internship">Rename Internship</label>
-              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+              <form class="col s8" method="POST" action="/update_name">
+                <input name="name" type="text" class="validate">
+                <label for="Rename Internship">Rename Internship</label>
+                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
+              </form>
             </td></tr>
+
             <tr><td>
-              <input name="desc type="text" class="validate">
-              <label for="Change Description">Change Description</label>
-              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+              <form class="col s8" method="POST" action="/update_desc">
+                <input name="desc" type="text" class="validate">
+                <label for="Change Description">Change Description</label>
+                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
+              </form>
             </td></tr>
+
             <tr><td>
-              <input name="name" type="text" class="validate">
-              <label for="Change Location">Change Location</label>
-              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
-            </td></tr>
+              <form class="col s8" method="POST" action="/update_location">
+                <input name="location" type="text" class="validate">
+                <label for="Change Location">Change Location</label>
+                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
+              </form>
+              </td></tr>
 
           </table>
         </div>

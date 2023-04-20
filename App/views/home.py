@@ -13,6 +13,11 @@ from App.controllers import (
     get_all_ship_json,
     create_ship,
     update_ship_name,
+    update_desc,
+    update_location,
+    update_spots,
+    update_enrolled,
+    del_ship
 )
 
 home_views = Blueprint('home_views', __name__, template_folder='../templates')
@@ -30,6 +35,8 @@ def homepage():
     name = admin.name #get admin name
     return render_template('home.html', admin = name, scrollers= ships, chosen=chosen)
 
+# Scroll Bar Setup
+# ----------------------------------------------------------------------------------
 @home_views.route('/home/<int:ship_id>', methods=['GET'])
 @login_required
 def homepage_withships(ship_id):
@@ -41,14 +48,9 @@ def homepage_withships(ship_id):
     admin = get_admin(id)#get the admin object
     name = admin.name #get admin name
     return render_template('home.html', admin = name, scrollers= ships, chosen=chosen)
-
-
-# current error 
-# File "/workspace/IntershipProject/App/controllers/Internship.py", line 10, in get_all_internship
-#     return Internship.query.all()
-# AttributeError: module 'App.models.Internship' has no attribute 'query'
-
     
+# Create Internship - Working
+# ----------------------------------------------------------------------------------
 @home_views.route('/home', methods=['POST'])
 @login_required
 def make_internship():
@@ -61,20 +63,49 @@ def make_internship():
     else:
         flash(f"Internship not created!")
     return redirect('/home')
-    
-@home_views.route('/update/<int:ship_id>', methods=['POST'])
+
+# UPDATE INTERNSHIP ROUTES
+# Update Internship Name
+# ----------------------------------------------------------------------------------
+@home_views.route('/update_name/<int:ship_id>', methods=['POST'])
 @login_required
-def namechange(ship_id):
+def name_change(ship_id):
     ship= get_ship(ship_id)
     data = request.form
-    ship = change_name(ship_id,data['name'])
+    ship = update_name(ship_id,data['name'])
     if ship!= None:
         flash(f"Internship {data['name']} changed!")
     else:
         flash(f"Name not changed!")
+    return redirect('/home/ship_id')   
+
+@home_views.route('/update_desc/<int:ship_id>', methods=['POST'])
+@login_required
+def desc_change(ship_id):
+    ship= get_ship(ship_id)
+    data = request.form
+    ship = update_desc(ship_id,data['desc'])
+    if ship!= None:
+        flash(f"Internship Description changed!")
+    else:
+        flash(f"Description not changed!")
     return redirect('/home/ship_id')
 
 
+@home_views.route('/update_location/<int:ship_id>', methods=['POST'])
+@login_required
+def location_change(ship_id):
+    ship= get_ship(ship_id)
+    data = request.form
+    ship = update_location(ship_id,data['location'])
+    if ship!= None:
+        flash(f"Internship Location changed!")
+    else:
+        flash(f"Location not changed!")
+    return redirect('/home/ship_id')
+
+
+    
 # Logout
 # --------------------------------------------------------------------------
 @home_views.route("/home/logout", methods=["POST"])

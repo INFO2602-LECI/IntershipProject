@@ -93,3 +93,11 @@ def update_enrolled(id, er):
         return db.session.commit()
     return None
 
+# Enrolled
+def del_ship(id):
+    ship = get_ship(id)
+    if ship:
+        db.session.delete(ship)
+        return db.session.commit()
+    return None
+
