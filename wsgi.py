@@ -4,7 +4,7 @@ from flask.cli import with_appcontext, AppGroup
 
 from App.database import db, get_migrate
 from App.main import create_app
-from App.controllers import ( create_user, create_admin, get_all_users_json, get_all_users, create_internship, )
+from App.controllers import ( create_user, create_admin, get_all_users_json, get_all_users, create_ship, )
 
 # This commands file allow you to create convenient CLI commands for testing controllers
 
@@ -17,7 +17,7 @@ def initialize():
     db.drop_all()
     db.create_all()
     create_admin('bob', 'bobpass', 'bobby')
-    # create_internship('First Internship', '', 'UWI', '2023,6,10,8',30)
+    # create_ship('First Internship', '', 'UWI', '2023,6,10,8',30)
     print('database intialized')
 
 '''
@@ -65,6 +65,26 @@ def user_tests_command(type):
         sys.exit(pytest.main(["-k", "UserUnitTests"]))
     elif type == "int":
         sys.exit(pytest.main(["-k", "UserIntegrationTests"]))
+    else:
+        sys.exit(pytest.main(["-k", "App"]))
+    
+@test.command("admin", help="Run Admin tests")
+@click.argument("type", default="all")
+def user_tests_command(type):
+    if type == "unit":
+        sys.exit(pytest.main(["-k", "InternAdminUnitTests"]))
+    elif type == "int":
+        sys.exit(pytest.main(["-k", "InternAdminIntegrationTests"]))
+    else:
+        sys.exit(pytest.main(["-k", "App"]))  
+
+@test.command("ship", help="Run Internship tests")
+@click.argument("type", default="all")
+def user_tests_command(type):
+    if type == "unit":
+        sys.exit(pytest.main(["-k", "InternshipUnitTests"]))
+    elif type == "int":
+        sys.exit(pytest.main(["-k", "InternshipIntegrationTests"]))
     else:
         sys.exit(pytest.main(["-k", "App"]))
     

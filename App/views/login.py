@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
-from flask_jwt_extended import jwt_required, current_user
+from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for, session
+from flask_jwt_extended import jwt_required, current_user,verify_jwt_in_request
 from flask_login import LoginManager, current_user, login_user, login_required, logout_user
 from App.models import InternAdmin, User
 
@@ -13,7 +13,7 @@ from App.controllers import (
 )
 
 login_views = Blueprint('login_views', __name__, template_folder='../templates')
-
+token = ''
 
 @login_views.route('/login', methods=['GET'])
 def login():
@@ -38,9 +38,12 @@ def loginaction():
     if admin:
         if admin.check_password(password=data['password']):
             token = authenticate(data['username'], data['password'])
+            session["access_token"] = token
+            # headers = {'Authorization': 'Bearer ' + token}
             login_user(admin)
             flash ('Logged in Successfully.')
-            return redirect('/home')
+            # return redirect('/home')
+            return redirect(url_for('home_views.homepage'))
         else:
             flash ('Incorrect Password.')
     else:    

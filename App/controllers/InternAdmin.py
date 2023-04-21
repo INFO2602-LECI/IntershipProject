@@ -1,5 +1,10 @@
-from App.models import InternAdmin, Internship
+from App.models import InternAdmin, Internship, Ship
 from App.database import db
+
+# testing
+def make_ship(name, desc, location, date_time, openspots):
+    ship= create_ship(name, desc, location, date_time, openspots)
+    return ship
 
 
 #InternAdmin Controllers

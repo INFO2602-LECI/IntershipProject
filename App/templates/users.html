@@ -1,34 +1,29 @@
 {% extends "layout.html" %}
 {% block title %}App Users{% endblock %}
-
-
 {% block page %}
-<nav class="purple">
+<nav class="blue">
   <div class="nav-wrapper">
-    <a href="#!" class="brand-logo center">user</a>
+    <a href="#!" class="brand-logo center">Users</a>
     <div class="nav-wrapper">
         <ul id="nav-mobile" class="left">
-            <li><a href="/">User</a></li>
-            <li><a href="/users">Users Jinja</a></li>
-            <li><a href="/static/users">Users JS</a></li>
-            <li style="margin-left: 800px;">
-              <form class="col s12" method="POST" action="/users/logout"> 
-              <button class="purple" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
-              </form>
-            </li>
-        </ul>
+          <li><a href="/">Welcome</a></li>
+          <li><a href="/signup">Signup</a></li>
+          <li><a href="/login">Login</a></li>
+          <li><a href="/home">Home</a></li>
+          <li><a href="/users">Users Jinja</a></li>
+          </ul>
+
     </div>
   </div>
 </nav>
 {% endblock %}
 
-{{ super() }}
 
 {% block content %}
     <div class="row">
-        <p>
-            This is table is renderd on the Server. Flask gets the data from the database and uses jinja templates to dyanmically render this page when a request is sent to <a href="/users">/users</a>.
-        </p>
+      <p style="font-size: larger;">
+          This page displays all Users and Interns. You can create new accounts right below here.
+      </p>
     </div>
 
     <div class="row">
@@ -55,14 +50,14 @@
       
         <div class="row">
           <div class="input-field col s12">
-            <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
+            <button class="btn waves-effect waves-light right blue type="submit" name="action">Submit</button>
           </div>
         </div> 
 
       </form>
     </div>
 
-    <div class="row" style="margin-left: 100px; margin-right: 100px;">
+    <div class="row" style="margin-left: 100px; margin-right: 100px; padding: 25;">
       <table>
         <thead>
           <tr>
@@ -81,6 +76,74 @@
       </table>
     </div>
 
-  
+
+    <!-- spacer -->
+    <div class="row" style="padding: 50px;">
+      <p>         </p>
+      <p style="font-size: larger;">Interns can enter their information below.</p>
+    </div>
+
+    <div class="row" style="padding: 30px; padding-right: 50px; margin-left: 55px;">
+      <form class="col s12" method="POST" action="/users/interns">
+        <div class="row" >
+          
+          <div class="input-field col s5">
+            <input placeholder="Robert Jones" name="name" type="text" class="validate">
+            <label for="name">Name</label>
+          </div>
+
+          <div class="input-field col s2">
+            <input placeholder="816000111" name="school_id" type="text" class="validate">
+            <label for="School ID">School ID</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input placeholder="DCIT" name="dept" type="text" class="validate">
+            <label for="Department">Department</label>
+          </div>
+        </div>
+
+        <div class="row" >
+          <div class="input-field col s6">
+            <input placeholder="COMP 1602" name="course" type="text" class="validate">
+            <label for="Courses">Courses</label>
+          </div>
+
+          <div class="input-field col s1">
+            <input placeholder="3" name="year" type="text" class="validate">
+            <label for="Year">Year</label>
+          </div>
+
+          <div class="input-field col s1">
+            <input placeholder="3.7" name="GPA" type="text" class="validate">
+            <label for="GPA">GPA</label>
+          </div>
+          <div class="col s1">
+            <div class="input-field">
+              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+            </div>
+          </div> 
+        </div>
+      </form>
+      
+      <div class="row">  
+      <table style="width: 97%;">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Course</th>
+        </tr>
+        {% for intern in interns %}
+            <tr>
+                <td>{{ intern.school_id }}</td>
+                <td>{{ intern.name }}</td>
+                <td>{{ intern.dept }}</td>
+                <td>{{ intern.course }}</td>
+            </tr>
+        {% endfor %}
+      </table>
+    </div>
+      
 
 {% endblock %}
