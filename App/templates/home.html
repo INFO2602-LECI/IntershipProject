@@ -51,12 +51,14 @@
 
           {% for scroller in scrollers%}
               {%if scroller.id == chosen.id %}
-              <div class="list-item">
-                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item-active" >{{ scroller.name }}</a>
+              <div class="list-item" style="width: 109%; margin-left: -5%;">
+                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item"style="border: 1px black solid; color: lightskyblue;">
+                    {{ scroller.name }}</a>
               </div>
               {% else %}
-              <div class="list-item" >
-                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item"" >{{ scroller.name }}</a>
+              <div class="list-item" style="width: 109%; margin-left: -5%;">
+                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item" style="background-color: rgb(96, 188, 246); color: white; border: 1px black solid;" >
+                  {{ scroller.name }}</a>
               </div>
               {% endif %}
           {% endfor %}
@@ -134,8 +136,8 @@
     
     <div>
       <div class="col s8">
-        {% if interns != -1%}
-          {%for intern in interns%}
+        {% if attendees != -1%}
+          {%for attendee in attendees%}
           <table>
             <thead>
               <tr>
@@ -144,8 +146,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{intern.intern_id}}</td>
-                    <td>{{intern.intern_id.name}}</td>
+                    <td>{{attendee.intern_id}}</td>
+                    <td>{{attendee.intern_id.name}}</td>
                 </tr>
             <tbody>
           </table>
@@ -186,6 +188,34 @@
 
         </form>
       </div>
+    </div>
+
+    <div class="row">
+        
+      <table style="width: 97%;">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Course</th>
+        </tr>
+        {% for intern in interns %}
+            <tr>
+                <td>{{ intern.school_id }}</td>
+                <td>{{ intern.name }}</td>
+                <td>{{ intern.dept }}</td>
+                <td>{{ intern.course }}</td>
+                <td>
+                  <form method="POST" action="/{{chosen.id}}/add_intern">
+                    <p>Admit to Internship</p>
+                    <!-- <input  name="ship" type="hidden" value="{{chosen.id}}"> -->
+                    <input  name="id" type="hidden" value="{{intern.school_id}}">
+                    <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Add Intern</button>
+                  </form>
+                </td>
+            </tr>
+        {% endfor %}
+      </table>
     </div>
 
     <!-- <div class="row">

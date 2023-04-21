@@ -1,4 +1,4 @@
-from App.models import Intern, Ship
+from App.models import Intern, Attendants
 from App.database import db
 
 def get_intern(id):
@@ -8,7 +8,7 @@ def get_all_intern():
     return Intern.query.all()
 
 def get_all_intern_for_ship(id):
-    return Intern.query.filter_by(ship_id=id)
+    return Attendants.query.filter_by(ship_id=id)
 
 def get_all_intern_json():
     intern = Intern.query.all()

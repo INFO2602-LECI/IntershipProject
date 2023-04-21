@@ -9,6 +9,7 @@ from.index import index_views
 from App.controllers import (
     get_admin, 
 
+    get_intern,
     get_all_intern,
     get_all_intern_for_ship,
 
@@ -22,7 +23,9 @@ from App.controllers import (
     update_datetime,
     update_spots,
     # update_enrolled,
-    del_ship
+    del_ship,
+
+    add_intern_to_ship,
 )
 
 home_views = Blueprint('home_views', __name__, template_folder='../templates')
@@ -37,11 +40,11 @@ def homepage():
     # person= get_jwt_identity()
     chosen= -1
     ships = get_all_ship()
-    # attendees = Attendants.get_json()
+    interns = get_all_intern()
     id = current_user.get_id()#get current user id
     admin = get_admin(id)#get the admin object
     name = admin.name #get admin name
-    return render_template('home.html', admin = name, scrollers= ships, chosen=chosen)
+    return render_template('home.html', admin = name, scrollers= ships, chosen=chosen, interns=interns)
 
 # Scroll Bar Setup
 # ----------------------------------------------------------------------------------
@@ -52,13 +55,14 @@ def homepage_withships(ship_id):
     if chosen== None:
         chosen=-1
     ships = get_all_ship()
-    interns = get_all_intern_for_ship(ship_id)
-    if interns == None:
-        interns= -1
+    attendees = get_all_intern_for_ship(ship_id)
+    interns = get_all_intern()
+    if attendees == None:
+        attendees= -1
     id = current_user.get_id()#get current user id
     admin = get_admin(id)#get the admin object
     name = admin.name #get admin name
-    return render_template('home.html', admin = name, scrollers= ships, chosen=chosen, interns=interns)
+    return render_template('home.html', admin = name, scrollers= ships, chosen=chosen, attendees= attendees, interns=interns)
     
 # Create Internship - Working
 # ----------------------------------------------------------------------------------
@@ -167,6 +171,25 @@ def del_internship(ship_id):
         return redirect('/home')
     else:
         flash(f"Internship could not be deleted!")
+        return redirect('/home/'+ str(ship.id)) 
+
+
+# Add Intern to Internship - 
+# ----------------------------------------------------------------------------------
+@home_views.route('/<int:ship_id>/add_intern', methods=['POST'])
+@login_required
+def admit_intern(ship_id):
+    data = request.form
+    ship= get_ship(ship_id)
+    intern= get_intern(data['id'])
+    # intern= get_intern(school_id)
+    # attendee = add_intern_to_ship(ship_id,school_id)
+    if ship:
+        attendee = add_intern_to_ship(ship.id, data['id'])
+        flash(intern.name+ f" has been added to "+ ship.name +"!")
+        return redirect('/home/'+ str(ship.id)) 
+    else:
+        flash(intern.name+ f" could not be added to internship!")
         return redirect('/home/'+ str(ship.id)) 
 
 
