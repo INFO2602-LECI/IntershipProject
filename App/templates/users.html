@@ -6,9 +6,9 @@
 
 {% block content %}
     <div class="row">
-        <p>
-            This page displays all Users. You can also create new accounts below.
-        </p>
+      <p style="font-size: larger;">
+          This page displays all Users and Interns. You can create new accounts right below here.
+      </p>
     </div>
 
     <div class="row">
@@ -42,7 +42,7 @@
       </form>
     </div>
 
-    <div class="row" style="margin-left: 100px; margin-right: 100px;">
+    <div class="row" style="margin-left: 100px; margin-right: 100px; padding: 25;">
       <table>
         <thead>
           <tr>
@@ -61,8 +61,57 @@
       </table>
     </div>
 
-    <div class="row">  
-      <table>
+    <!-- spacer -->
+    <div class="row" style="padding: 50px;">
+      <p>         </p>
+      <p style="font-size: larger;">Interns can enter their information below.</p>
+    </div>
+
+    <div class="row" style="padding: 30px; padding-right: 50px; margin-left: 55px;">
+      <form class="col s12" method="POST" action="/users/interns">
+        <div class="row" >
+          
+          <div class="input-field col s5">
+            <input placeholder="Robert Jones" name="name" type="text" class="validate">
+            <label for="name">Name</label>
+          </div>
+
+          <div class="input-field col s2">
+            <input placeholder="816000111" name="school_id" type="text" class="validate">
+            <label for="School ID">School ID</label>
+          </div>
+
+          <div class="input-field col s4">
+            <input placeholder="DCIT" name="dept" type="text" class="validate">
+            <label for="Department">Department</label>
+          </div>
+        </div>
+
+        <div class="row" >
+          <div class="input-field col s4">
+            <input placeholder="COMP 1602" name="course" type="text" class="validate">
+            <label for="Courses">Courses</label>
+          </div>
+
+          <div class="input-field col s1">
+            <input placeholder="3" name="year" type="text" class="validate">
+            <label for="Year">Year</label>
+          </div>
+
+          <div class="input-field col s1">
+            <input placeholder="3.7" name="GPA" type="text" class="validate">
+            <label for="GPA">GPA</label>
+          </div>
+          <div class="col s1">
+            <div class="input-field col s12">
+              <button class="btn waves-effect waves-light right purple" type="submit" name="action">Submit</button>
+            </div>
+          </div> 
+        </div>
+      </form>
+      
+      <div class="row">  
+      <table style="width: 97%;">
         <tr>
             <th>ID</th>
             <th>Username</th>
@@ -71,13 +120,16 @@
         </tr>
         {% for intern in interns %}
             <tr>
-                <td>{{ intern.id }}</td>
-                <td>{{ intern.username }}</td>
+                <td>{{ intern.school_id }}</td>
+                <td>{{ intern.name }}</td>
                 <td>{{ intern.name }}</td>
                 <td>{{ intern.course }}</td>
             </tr>
         {% endfor %}
       </table>
     </div>
+        
+
+    
 
 {% endblock %}

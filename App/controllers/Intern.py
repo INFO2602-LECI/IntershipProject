@@ -1,11 +1,14 @@
-from App.models import Intern
+from App.models import Intern, Ship
 from App.database import db
 
 def get_intern(id):
     return Intern.query.get(id)
 
 def get_all_intern():
-    return Internship.query.all()
+    return Intern.query.all()
+
+def get_all_intern_for_ship(id):
+    return Intern.query.filter_by(ship_id=id)
 
 def get_all_intern_json():
     intern = Intern.query.all()
@@ -22,26 +25,21 @@ def update_intern(id, username):
         return db.session.commit()
     return None
 
-def create_intern(self, username, password, name, course):
-        intern = Intern(username=username, password=password, name=name, course=course)
-        db.session.add(intern)
-        db.session.commit()
-        return intern
+def create_intern(name, school_id, dept, course, year, GPA):
+    intern = Intern(name=name, school_id=school_id, dept=dept, course=course, year=year, GPA=GPA)
+    db.session.add(intern)
+    db.session.commit()
+    return intern
 
-def create_intern(self, username, password, name, course):
-        intern = Intern(username=username, password=password, name=name, course=course)
-        db.session.add(intern)
-        db.session.commit()
-        return intern
 
 def update_intern(self, id, username):
-        intern = self.get_intern(id)
-        if intern:
-            intern.username = username
-            db.session.add(intern)
-            db.session.commit()
-            return True
-        return False
+    intern = self.get_intern(id)
+    if intern:
+        intern.username = username
+        db.session.add(intern)
+        db.session.commit()
+        return True
+    return False
 
 def delete_intern(self, id):
         intern = self.get_intern(id)
