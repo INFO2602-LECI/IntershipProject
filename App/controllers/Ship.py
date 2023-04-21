@@ -2,9 +2,12 @@ from App.models import InternAdmin, Ship, Attendants
 from App.database import db
 
 # testing
-def add_intern_to_ship(ship_id, id):
+def add_intern_to_ship( id, ship_id):
     if ship_id == None:
         flash(f"Could not locate internship!")
+        return None
+    if id == None:
+        flash(f"Could not locate intern!")
         return None
     attendee = Attendants(ship_id=ship_id, intern_id=id )
     if attendee:
