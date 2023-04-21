@@ -1,13 +1,17 @@
-from App.models import InternAdmin, Ship
+from App.models import InternAdmin, Ship, Attendants
 from App.database import db
 
 # testing
-# def create_ship(name, desc, location, date_time. ,openspots):
-#     ship = Ship(name=name, desc=desc, location=location, date_time=date_time, openspots = openspots )
-#     if ship:
-#         db.session.add(ship)
-#         return db.session.commit()
-#     return None
+def add_intern_to_ship(ship_id, id):
+    if ship_id == None:
+        flash(f"Could not locate internship!")
+        return None
+    attendee = Attendants(ship_id=ship_id, intern_id=id )
+    if attendee:
+        db.session.add(attendee) 
+        db.session.commit()
+        return attendee
+    return None
     
 #Ship Controllers
 # --------------------------------------------------------------------------------

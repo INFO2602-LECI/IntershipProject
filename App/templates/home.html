@@ -25,33 +25,50 @@
 
 
   <div class="row" style="margin: auto;">
-      <p>
-          Welcome {{admin}}.
-      </p>
+    <p style="font-size: large; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        Welcome {{admin}}.
+    </p>
   </div>
 
+  <table style=" margin-left: -125px;">
+    <thead>
+      <tr>
+        <th class="col m9;">All Internships</th>
+        <th class="col m2;">Selected Internship</th>
+        <th class="col m1;">Options</th>
+        <th></th> <th></th> <th></th>
+        <!-- weird tempt formatting -->
+        <th></th>
+      </tr>
+    </thead>
+  </table>
+   
+
+
     
-  <div class="row">
-    <div class="internship data" style="display: inline-block;">
+  <div class="row" style="margin-left: 200px;">
+    <div class="internship data" style="display: inline-block; margin-left: 25px;">
       <!-- scrollbar stuff -->
-      <div class="col m2 list-container collection" style="max-height: 84vh; margin-left: -165px;" >
+      <div class="col m2 list-container collection" style="max-height: 84vh; margin-left: -350px; width: 30%;"  >
 
           {% for scroller in scrollers%}
               {%if scroller.id == chosen.id %}
-              <div class="list-item">
-                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item-active" >{{ scroller.name }}</a>
+              <div class="list-item" style="width: 109%;"">
+                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item"style="border: 1px black solid; color: lightskyblue;">
+                    {{ scroller.name }}</a>
               </div>
               {% else %}
-              <div class="list-item" >
-                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item"" >{{ scroller.name }}</a>
+              <div class="list-item" style="width: 109%; margin-left: -5%;">
+                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item" style="background-color: rgb(96, 188, 246); color: white; border: 1px black solid;" >
+                  {{ scroller.name }}</a>
               </div>
               {% endif %}
           {% endfor %}
       </div>
 
       <!-- Card div has internship info -->
-      <div class="col m4"> 
-        <div class="card" style="padding: 20px;">
+      <div class="col m4" style="margin-left: -20px;"> 
+        <div class="card" style="padding: 20px; margin-left: -50px; width: 115%;">
           {% if chosen == -1 %}
           {% else %}
             <span class="card-title">{{chosen.name}} </span>
@@ -62,12 +79,12 @@
             <p>Availability: {{ chosen.openspots }}</p>
             <p>Enrollment: {{ chosen.enrolled }}</p>
 
-            {% endif %}
+          {% endif %}
         </div>
       </div>
 
       <!-- update buttons -->
-      <div class="col m6 options" style="width: 65%; display: inline-block;">
+      <div class="col m6 options" style="width: 65%; display: inline-block; margin-left: 5px;;">
         <div class="card" style="padding: 20px; display: inline-block;">
           <table>
             <tr><th>Options</th></tr>
@@ -120,38 +137,88 @@
   </div>
     
     <div>
-      <p>Create a new Internship Here.</p>
-      <form class="col s10" method="POST" action="/home">
-        
-        <!-- <div class="row"> -->
-        <div class="input-field col s6">
-          <input name="name" type="text" class="validate">
-          <label for="Name">Name</label>
-        </div>
-        <div class="input-field col s6">
-          <input name="desc" type="text" class="validate">
-          <label for="Description">Description</label>
-        </div>
-        <div class="input-field col s6">
-          <input name="location" type="text" class="validate">
-          <label for="Location">Location</label>
-        </div>
-        <div class="input-field col s6">
-          <input placeholder="format year, month, day, hour" name="date_time" type="text" class="validate">
-          <label for="Date and Time">Date and Time</label>
-        </div>
-        <div class="input-field col s6">
-          <input name="openspots" type="text" class="validate">
-          <label for="Open Spots">Open Spots</label>
-        </div>
+      <div class="col s8">
+        {% if attendees != -1%}
+          {%for attendee in attendees%}
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{attendee.intern_id}}</td>
+                    <td>{{attendee.intern_id.name}}</td>
+                </tr>
+            <tbody>
+          </table>
+          {%endfor%}
+        {%endif%}
+      </div>
+      <div class="col s8">
+        <p>Create a new Internship Here.</p>
+        <form class="col s10" method="POST" action="/home">
           
-        <div class="row">
-          <div class="input-field col s12">
-            <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+          <!-- <div class="row"> -->
+          <div class="input-field col s6">
+            <input name="name" type="text" class="validate">
+            <label for="Name">Name</label>
           </div>
-        </div> 
+          <div class="input-field col s6">
+            <input name="desc" type="text" class="validate">
+            <label for="Description">Description</label>
+          </div>
+          <div class="input-field col s6">
+            <input name="location" type="text" class="validate">
+            <label for="Location">Location</label>
+          </div>
+          <div class="input-field col s6">
+            <input placeholder="format year, month, day, hour" name="date_time" type="text" class="validate">
+            <label for="Date and Time">Date and Time</label>
+          </div>
+          <div class="input-field col s6">
+            <input name="openspots" type="text" class="validate">
+            <label for="Open Spots">Open Spots</label>
+          </div>
+            
+          <div class="row">
+            <div class="input-field col s12">
+              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+            </div>
+          </div> 
 
-      </form>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      {% if chosen.id != -1 %}
+        <table style="width: 97%;">
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Course</th>
+          </tr>
+            {% for intern in interns %}
+              <tr>
+                  <td>{{ intern.school_id }}</td>
+                  <td>{{ intern.name }}</td>
+                  <td>{{ intern.dept }}</td>
+                  <td>{{ intern.course }}</td>
+                  <td>
+                    <form method="POST" action="/{{chosen.id}}/add_intern">
+                      <p>Admit to Internship</p>
+                      <!-- <input  name="ship" type="hidden" value="{{chosen.id}}3"> -->
+                      <input  name="id" type="hidden" value="{{intern.school_id}}">
+                      <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Add Intern</button>
+                    </form>
+                  </td>
+              </tr>
+          {% endfor %}
+        </table>
+      {%endif%}
     </div>
 
     <!-- <div class="row">
