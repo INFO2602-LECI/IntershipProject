@@ -3,14 +3,27 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from App.main import create_app
 from App.database import create_db
-from App.models import User
+from App.models import User, InternAdmin, Ship
 from App.controllers import (
     create_user,
     get_all_users_json,
     authenticate,
     get_user,
     get_user_by_username,
-    update_user
+    update_user,
+    
+    create_admin,
+    authenticate,
+    get_all_admin_json,
+    get_admin,
+    get_admin_by_username,
+    get_admin_by_name,
+    update_admin,
+    
+    create_ship,
+    get_ship,
+    get_all_ship_json,
+    get_ship_by_name
 )
 
 from wsgi import app
@@ -43,6 +56,43 @@ class UserUnitTests(unittest.TestCase):
         password = "mypass"
         user = User("bob", password)
         assert user.check_password(password)
+
+class InternAdminUnitTests(unittest.TestCase):
+
+    def test_new_admin(self):
+        admin = InternAdmin("bob", "bobpass", "bobby")
+        assert admin.username == "bob"
+
+    # pure function no side effects or integrations called
+    def test_get_json(self):
+        admin = InternAdmin("bob", "bobpass", "bobby")
+        admin_json = admin.get_json()
+        self.assertDictEqual(admin_json, {"id":None, "name":"bob"})
+    
+    def test_hashed_password(self):
+        password = "mypass"
+        hashed = generate_password_hash(password, method='sha256')
+        admin = InternAdmin("bob", password)
+        assert admin.password != password
+
+    def test_check_password(self):
+        password = "mypass"
+        admin = InternAdmin("bob", password)
+        assert admin.check_password(password)
+
+class InternshipUnitTests(unittest.TestCase):
+
+    def test_new_ship(self):
+        ship = Ship("first ship", "its first", "UWI","2022,10,5, 9:30", 30)
+        assert ship.name == "first ship"
+
+    # pure function no side effects or integrations called
+    def test_get_json(self):
+        ship = Ship("first ship", "its first", "UWI","2022,10,5, 9:30", 30)
+        ship_json = ship.get_json()
+        self.assertDictEqual(ship_json, {"id":None, "name":"first ship"})
+    
+
 
 '''
     Integration Tests
