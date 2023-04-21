@@ -30,12 +30,14 @@
     </p>
   </div>
 
-  <table style=" margin-left: -145px;">
+  <table style=" margin-left: -125px;">
     <thead>
       <tr>
         <th class="col m9;">All Internships</th>
         <th class="col m2;">Selected Internship</th>
         <th class="col m1;">Options</th>
+        <th></th> <th></th> <th></th>
+        <!-- weird tempt formatting -->
         <th></th>
       </tr>
     </thead>
@@ -45,13 +47,13 @@
 
     
   <div class="row" style="margin-left: 200px;">
-    <div class="internship data" style="display: inline-block;">
+    <div class="internship data" style="display: inline-block; margin-left: 25px;">
       <!-- scrollbar stuff -->
       <div class="col m2 list-container collection" style="max-height: 84vh; margin-left: -350px; width: 30%;"  >
 
           {% for scroller in scrollers%}
               {%if scroller.id == chosen.id %}
-              <div class="list-item" style="width: 109%; margin-left: -5%;">
+              <div class="list-item" style="width: 109%;"">
                   <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item"style="border: 1px black solid; color: lightskyblue;">
                     {{ scroller.name }}</a>
               </div>
@@ -65,7 +67,7 @@
       </div>
 
       <!-- Card div has internship info -->
-      <div class="col m4"> 
+      <div class="col m4" style="margin-left: -20px;"> 
         <div class="card" style="padding: 20px; margin-left: -50px; width: 115%;">
           {% if chosen == -1 %}
           {% else %}
@@ -82,7 +84,7 @@
       </div>
 
       <!-- update buttons -->
-      <div class="col m6 options" style="width: 65%; display: inline-block;">
+      <div class="col m6 options" style="width: 65%; display: inline-block; margin-left: 5px;;">
         <div class="card" style="padding: 20px; display: inline-block;">
           <table>
             <tr><th>Options</th></tr>
@@ -191,31 +193,32 @@
     </div>
 
     <div class="row">
-        
-      <table style="width: 97%;">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Course</th>
-        </tr>
-        {% for intern in interns %}
-            <tr>
-                <td>{{ intern.school_id }}</td>
-                <td>{{ intern.name }}</td>
-                <td>{{ intern.dept }}</td>
-                <td>{{ intern.course }}</td>
-                <td>
-                  <form method="POST" action="/{{chosen.id}}/add_intern">
-                    <p>Admit to Internship</p>
-                    <!-- <input  name="ship" type="hidden" value="{{chosen.id}}"> -->
-                    <input  name="id" type="hidden" value="{{intern.school_id}}">
-                    <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Add Intern</button>
-                  </form>
-                </td>
-            </tr>
-        {% endfor %}
-      </table>
+      {% if chosen.id != -1 %}
+        <table style="width: 97%;">
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Course</th>
+          </tr>
+            {% for intern in interns %}
+              <tr>
+                  <td>{{ intern.school_id }}</td>
+                  <td>{{ intern.name }}</td>
+                  <td>{{ intern.dept }}</td>
+                  <td>{{ intern.course }}</td>
+                  <td>
+                    <form method="POST" action="/{{chosen.id}}/add_intern">
+                      <p>Admit to Internship</p>
+                      <!-- <input  name="ship" type="hidden" value="{{chosen.id}}3"> -->
+                      <input  name="id" type="hidden" value="{{intern.school_id}}">
+                      <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Add Intern</button>
+                    </form>
+                  </td>
+              </tr>
+          {% endfor %}
+        </table>
+      {%endif%}
     </div>
 
     <!-- <div class="row">
