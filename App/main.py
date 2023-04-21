@@ -8,7 +8,7 @@ from werkzeug.datastructures import  FileStorage
 from datetime import timedelta
 
 
-from App.database import init_db
+from App.database import init_db, db
 
 from App.controllers import (
     setup_jwt
@@ -29,6 +29,7 @@ from App.models import (
 # )
 
 from App.views import views
+
 
 def add_views(app):
     for view in views:
@@ -82,5 +83,7 @@ def create_app(config={}):
     setup_jwt(app)
     login_manager.init_app(app)
     login_manager.login_view = "login_page"
+    with app.app_context():
+        db.create_all()
     app.app_context().push()
     return app
