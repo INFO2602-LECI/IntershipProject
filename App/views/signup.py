@@ -23,7 +23,7 @@ def signupaction():
     data = request.form
     create_admin(data['username'], data['password'])
     flash(f"User {data['username']} created!")
-    return redirect(url_for('signup_views.get_user_page'))
+    return redirect(url_for('login_views.login'))
 
 # @signup_views.route('/api/users', methods=['GET'])
 # def get_users_action():

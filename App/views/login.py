@@ -42,7 +42,8 @@ def loginaction():
             # headers = {'Authorization': 'Bearer ' + token}
             login_user(admin)
             flash ('Logged in Successfully.')
-            return redirect('/home')
+            # return redirect('/home')
+            return redirect(url_for('home_views.homepage'))
         else:
             flash ('Incorrect Password.')
     else:    
