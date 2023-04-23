@@ -176,23 +176,25 @@ def del_internship(ship_id):
 
 # Add Intern to Internship - 
 # ----------------------------------------------------------------------------------
-@home_views.route('/<int:ship_id>/add_intern', methods=['POST'])
+@home_views.route('/add_intern/<int:ship_id>', methods=['POST'])
 @login_required
 def admit_intern(ship_id):
+    data = request.form
     if ship_id == None:
         flash(f"Could not locate internship!")
         return redirect('/home') 
-
-    data = request.form
-    ship= get_ship(ship_id)
+    # s= data['ship']
+    # ship= get_ship(ship_id)
     intern= get_intern(data['id'])
-    if ship:
-        attendee = add_intern_to_ship(ship_id, data['id'])
-        flash(intern.name+ f" has been added to "+ ship.name +"!")
-        return redirect('/home/'+ str(ship.id)) 
+    # a parameter is being lost in translation somehow somewhere
+    if ship_id and intern:
+        attendee = add_intern_to_ship(ship_id, intern.school_id)
+        # flash(intern.name+ f" has been added to "+ ship.name +"!")
+        flash(intern.name+ f" has been added to "+ str(ship_id) +"!")
+        return redirect('/home/'+ str(ship_id)) 
     else:
         flash(intern.name+ f" could not be added to internship!")
-        return redirect('/home/'+ str(ship.id)) 
+        return redirect('/home/'+ str(ship)) 
 
 
     

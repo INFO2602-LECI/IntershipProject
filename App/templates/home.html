@@ -139,24 +139,28 @@
     
     <div>
       <div class="col s8">
-        {% if attendees != -1%}
-          {%for attendee in attendees%}
-          <table>
-            <thead>
+      {% if attendees != -1%}
+      <p style="font-size: larger;">Interns attending selected internship.</p>
+        <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+            {%for attendee in attendees%}
               <tr>
-                <th>ID</th><th>Name</th>
+                  <td>{{attendee.intern_id}}</td>
+                  <td>{{attendee.intern_id.name}}</td>
               </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{attendee.intern_id}}</td>
-                    <td>{{attendee.intern_id.name}}</td>
-                </tr>
-            <tbody>
-          </table>
-          {%endfor%}
+            {%endfor%}
+          <tbody>
+        </table>
         {%endif%}
       </div>
+
+      <div class="row" style="border-bottom: 1px black solid; margin-top: 50px;"></div>
+
       <div class="col s8">
         <p>Create a new Internship Here.</p>
         <form class="col s10" method="POST" action="/home">
@@ -198,7 +202,7 @@
 
     <div class="row">
       <!-- was supposed to not show table if -1 but still shows -->
-      <!-- {% if chosen.id != -1 %} -->
+      {% if chosen.id != -1 %}
         <table style="width: 97%;">
           <tr>
               <th>ID</th>
