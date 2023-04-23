@@ -50,6 +50,10 @@
             <input id = "captureBtn" value= "Add intern" class="btn #588157 center" type="button" type="submit" onclick="capture_pokemon({{selected_pokemon.id}})"/>
             <input name="pokemon_name" id="pokemon_name" type="text"/>
            </form>
+             
+           <form>
+            <input id = "captureBtn" value= "View interns" class="btn #588157 center" type="button" type="submit" onclick="location.href='https://www.google.com/forms/about/'"/>
+            </form>
          
         </div>
 
@@ -70,7 +74,7 @@
                 <td>{{Pokemon.pokemon.name}}</td>
                 <td>{{Pokemon.name}}</td>
                 <td> <input name="{{Pokemon.name}}-new_name" id="{{Pokemon.name}}-new_name" type="text"/> <input id = "rename-{{Pokemon.name}}" class="btn #588157 left" value= "Edit" type="button" type="submit" onclick="rename({{Pokemon.id}},'{{Pokemon.name}}')"/></td>
-                <td> <input id = "release-{{Pokemon.name}}" value= "Delete intern" class="btn #588157 right" type="button" type="submit" onclick="release({{Pokemon.id}})"/></td>
+                <td> <input id = "release-{{Pokemon.name}}" value= "Delete" class="btn #588157 right" type="button" type="submit" onclick="release({{Pokemon.id}})"/></td>
               </tr>
              {% endfor %}
               </tbody>
