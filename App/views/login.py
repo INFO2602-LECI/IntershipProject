@@ -1,48 +1,41 @@
-from flask import Blueprint, render_template, jsonify, request, send_from_directory, flash, redirect, url_for
-from flask_jwt_extended import jwt_required, current_user
-from flask_login import LoginManager, current_user, login_user, login_required, logout_user
-from App.models import InternAdmin, User
+{% extends "layout.html" %}
+
+{% block title %}L.E.C.I Internship Platform{% endblock %}
+
+{% block page %}L.E.C.I Internship Platform{% endblock %}
 
 
-from.index import index_views
-from App.controllers import (
-    create_user,
-    authenticate, 
-    get_all_users,
-    get_all_users_json,
-)
+{% block content %}
+<div class="content fill-space">
+  <img class="grow-2" src="https://test.ishmaeljup.repl.co/image.png">
+  <div class="subcontent center-vertical">
+    <h4 class="center">Login</h4>
+    <form id="loginForm" method="POST" action="/login" style="padding:1em">
 
-login_views = Blueprint('login_views', __name__, template_folder='../templates')
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="Placeholder" id="username" name="username" type="text" class="validate">
+          <label for="username">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input name="password" id="password" type="password" class="validate">
+          <label for="password">Password</label>
+        </div>
+      </div>
+      <div class="row justify-content">
+        <div class="col s4 card-action">
+          <input type="submit" class="blue text-white btn" value="Login">
+        </div>
 
+        <div class="col s8 card-action right-align">
+          <a href="/signup">Don't have an account? Sign Up</a>
+        </div>
+      </div>
 
-@login_views.route('/login', methods=['GET'])
-def login():
-    return render_template('login.html')
+    </form>
+  </div>
 
-# @login_views.route('/login', methods=['POST'])
-# def loginaction():
-#     data = request.form
-#     token = authenticate(data['username'], data['password'])
-#     if not token:
-#         # return jsonify(message='bad username or password given'), 401
-#         flash(f"Username or password incorrect!")
-#         return redirect('/login')
-#     return redirect('/home')
-    #     return render_template('/login.html')
-    # return render_template('/home.html')
-
-@login_views.route("/login", methods=['POST'])
-def loginaction():
-    data = request.form #get user data
-    admin= InternAdmin.query.filter_by(username= data['username']).first()#get user account
-    if admin:
-        if admin.check_password(password=data['password']):
-            token = authenticate(data['username'], data['password'])
-            login_user(admin)
-            flash ('Logged in Successfully.')
-            return redirect('/home')
-        else:
-            flash ('Incorrect Password.')
-    else:    
-        flash ('Bad Username or Username Not Found.')
-    return redirect('/login')
+</div>
+{% endblock %}
