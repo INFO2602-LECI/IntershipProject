@@ -78,8 +78,12 @@
             <p>Location: {{ chosen.location }}</p>
             <p>Date and Time: {{ chosen.date_time }}</p>
             <p>Availability: {{ chosen.openspots }}</p>
-            <p>Enrollment: {{ chosen.enrolled }}</p>
-
+            <p>Enrollment: {{ chosen.enrolled }}</p> 
+                                    
+            <form>
+            <input id = "captureBtn" value= "APPLY NOW!" class="btn #588157 center" type="button" type="submit" onclick="location.href='https://docs.google.com/forms/d/e/1FAIpQLSdk5ZQV1CEOO8ksZk82mLWSFsgVA6svsqhFs5AS0tI3dQ4w6g/viewform?usp=sf_link'"/
+            </form>
+         
           {% endif %}
         </div>
       </div>
@@ -87,6 +91,7 @@
       <!-- update buttons -->
       <div class="col m6 options" style="width: 65%; display: inline-block; margin-left: 5px;;">
         <div class="card" style="padding: 20px; display: inline-block;">
+                                                                       
           <table>
             <tr><th>Options</th></tr>
             <!-- options to edit the internship is by row -->
