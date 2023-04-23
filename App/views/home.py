@@ -190,7 +190,7 @@ def admit_intern(ship_id):
     if ship_id and intern:
         attendee = add_intern_to_ship(ship_id, intern.school_id)
         # flash(intern.name+ f" has been added to "+ ship.name +"!")
-        flash(intern.name+ f" has been added to "+ ship_id +"!")
+        flash(intern.name+ f" has been added to "+ str(ship_id) +"!")
         return redirect('/home/'+ str(ship_id)) 
     else:
         flash(intern.name+ f" could not be added to internship!")
