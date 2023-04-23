@@ -2,13 +2,15 @@ from App.database import db
 from App.models import Ship, Intern
 
 class Attendants(db.Model):
-    ship_id = db.Column(db.Integer, db.ForeignKey('ship.id'), primary_key=True, nullable=False)
-    intern_id = db.Column(db.Integer, db.ForeignKey('intern.school_id'), primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    ship_id = db.Column(db.Integer, db.ForeignKey('ship.id'), nullable=False)
+    intern_id = db.Column(db.Integer, db.ForeignKey('intern.school_id'), nullable=False)
 #   intern = db.relationship('intern', backref=db.backref('attendees', lazy='joined'))
  
-    def __init__(self, ship_id, intern_id):
+    def __init__(self, id, ship_id, intern_id):
         self.ship_id = ship_id
-        self.ship_id = intern_id
+        self.intern_id = intern_id
+        self.id = id
     
 
 
