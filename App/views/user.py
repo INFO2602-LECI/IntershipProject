@@ -12,6 +12,7 @@ from App.controllers import (
     get_all_users_json,
     create_intern,
     get_all_intern,
+    get_intern,
 )
 
 user_views = Blueprint('user_views', __name__, template_folder='../templates')
@@ -49,8 +50,12 @@ def create_user_action():
 @user_views.route('/users/interns', methods=['POST'])
 def create_intern_action():
     data = request.form
-    flash(f"Intern {data['name']} created!")
-    create_intern(data['name'], data['school_id'], data['dept'], data['course'], data['year'], data['GPA'])
+    exist= get_intern(data['school_id'])
+    if exist:
+        flash(f"Intern alread exists!")
+    else:
+        flash(f"Intern {data['name']} created!")
+        create_intern(data['name'], data['school_id'], data['dept'], data['course'], data['year'], data['GPA'])
     return redirect(url_for('user_views.get_user_page'))
 
 @user_views.route('/static/users', methods=['GET'])

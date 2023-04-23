@@ -15,7 +15,8 @@ class Attendants(db.Model):
     def get_json(self):
         return {
         "Internship ID": self.ship_id,
-        "Internship Name": self.ship_id.name,
-        "Attendants": self.cat_list()
+        "Intern ID": self.intern_id,
+        # "Internship Name": self.ship_id.name,
+        # "Intern Name": self.intern.id.name
         }
     
