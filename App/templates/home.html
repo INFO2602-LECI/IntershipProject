@@ -1,248 +1,151 @@
 {% extends "layout.html" %}
+
 {% block title %}Home{% endblock %}
-{% block page %}
-<nav class="blue">
-  <div class="nav-wrapper">
-    <a href="#!" class="brand-logo center">Home</a>
-    <div class="nav-wrapper">
-        <ul id="nav-mobile" class="left">
-          <li><a href="/">Welcome</a></li>
-          <li><a href="/home">Home</a></li>
-          <li><a href="/users">Users Jinja</a></li>
-          </ul><ul class="right" style="margin-right: 10px;">
-          <li>
-            <form class="col s12" method="POST" action="/home/logout"> 
-            <button class="blue" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
-            </form>
-          </li>
-        </ul>
-    </div>
-  </div>
-</nav>
+
+{% block page %}Home{% endblock %}
+
+{% block link%}
+<ul id="nav-mobile" class="right">
+    <li><a href="/logout">Logout</a></li>
+</ul>
 {% endblock %}
 
 
 {% block content %}
 
+<div class="row" style="background-color: rgba(0, 0, 255, 0.614)">
+    <div class="col m2 list-container collection" style="max-height: 84vh;">
 
-  <div class="row" style="margin: auto;">
-    <p style="font-size: large; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
-        Welcome {{admin}}.
-    </p>
-  </div>
-
-  <table style=" margin-left: -125px;">
-    <thead>
-      <tr>
-        <th class="col m9;">All Internships</th>
-        <th class="col m2;">Selected Internship</th>
-        <th class="col m1;">Options</th>
-        <th></th> <th></th> <th></th>
-        <!-- weird tempt formatting -->
-        <th></th>
-      </tr>
-    </thead>
-  </table>
-   
-
-
-    
-  <div class="row" style="margin-left: 200px;">
-    <div class="internship data" style="display: inline-block; margin-left: 25px;">
-      <!-- scrollbar stuff -->
-      <div class="col m2 list-container collection" style="max-height: 84vh; margin-left: -350px; width: 30%;"  >
-
-          {% for scroller in scrollers%}
-              {%if scroller.id == chosen.id %}
-              <div class="list-item" style="width: 109%;"">
-                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item"style="border: 1px black solid; color: lightskyblue;">
-                    {{ scroller.name }}</a>
-              </div>
+        <!-- edit to show all pokemon links but have only the selected pokemon as active -->
+        <div class="list-item" style="background-color: rgba(255, 0, 0, 0.683)">   
+            {% for Pokemon in pokemon %}
+              {% if selected_pokemon.name in Pokemon.name%}
+                 <a style="background-color: rgba(0, 0, 255, 0.614)" href = "/app/{{Pokemon.id}}" id = "poke-{{Pokemon.id}}" class="collection-item active">{{Pokemon.name}}</a>
               {% else %}
-              <div class="list-item" style="width: 109%; margin-left: -5%;">
-                  <a href="/home/{{ scroller.id }}" id="ship_{{ scroller.id }}" class="collection-item" style="background-color: rgb(96, 188, 246); color: white; border: 1px black solid;" >
-                  {{ scroller.name }}</a>
-              </div>
+                <a style = "background-color:rgba(255, 0, 0, 0.683)"href="/app/{{Pokemon.id}}" id="poke-{{Pokemon.id}}" class="collection-item" >{{Pokemon.name}}</a> 
               {% endif %}
-          {% endfor %}
-      </div>
-
-      <!-- Card div has internship info -->
-      <div class="col m4" style="margin-left: -20px;"> 
-        <div class="card" style="padding: 20px; margin-left: -50px; width: 115%;">
-          {% if chosen == -1 %}
-          {% else %}
-            <span class="card-title">{{chosen.name}} </span>
-            <p>Name: {{ chosen.name }}</p>
-            <p>Description: {{ chosen.desc }}</p>
-            <p>Location: {{ chosen.location }}</p>
-            <p>Date and Time: {{ chosen.date_time }}</p>
-            <p>Availability: {{ chosen.openspots }}</p>
-            <p>Enrollment: {{ chosen.enrolled }}</p>
-
-          {% endif %}
+            {% endfor %}
         </div>
-      </div>
-
-      <!-- update buttons -->
-      <div class="col m6 options" style="width: 65%; display: inline-block; margin-left: 5px;;">
-        <div class="card" style="padding: 20px; display: inline-block;">
-          <table>
-            <tr><th>Options</th></tr>
-            <!-- options to edit the internship is by row -->
-            <tr><td>
-              <form class="col s6" method="POST" action="/update_name/{{chosen.id}}">
-                <input name="name" type="text" class="validate" placeholder="CAL Summer 2023">
-                <label for="Rename Internship">Rename Internship</label>
-                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
-              </form>
-              
-              <form class="col s6" method="POST" action="/update_desc/{{chosen.id}}">
-                <input name="desc" type="text" class="validate" placeholder="Internship For Management Students.">
-                <label for="Change Description">Change Description</label>
-                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
-              </form>
-            </td></tr>
-
-            <tr><td>
-              <form class="col s6" method="POST" action="/update_location/{{chosen.id}}">
-                <input name="location" type="text" class="validate" placeholder="Earth">
-                <label for="Change Location">Change Location</label>
-                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
-              </form>
-              
-              <form class="col s6" method="POST" action="/update_datetime/{{chosen.id}}">
-                <input name="dtime type="text" class="validate">
-                <label for="Change Date and Time">Change Date and Time</label>
-                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
-              </form>
-            </td></tr>
-
-            <tr><td> 
-              <form class="col s6" method="POST" action="/update_openspots/{{chosen.id}}">
-                <input name="openspots" type="text" class="validate">
-                <label for="Change Availability">Change Availability</label>
-                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Submit</button>
-              </form> 
-              
-              <form class="col s6" method="DELETE" action="/del_internship/{{chosen.id}}">
-                <p style="margin-left: 30px;">Delete Internship</p>
-                <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action"">Delete</button>
-              </form>
-            </td></tr>
     
-          </table>
+    </div>
+    
+    <div class="col m3">
+
+        <p class="text-center">Selected Pokemon</p>
+
+        <div class="card" style="background-color: rgba(255, 0, 0, 0.683)">
+            <!-- Selected Pokemon Content Here -->
+           <img src="https://test.ishmaeljup.repl.co/{{selected_pokemon.id}}.jpg"/>
+           <span class="card-title">{{selected_pokemon.name}}</span>
+           <p> name: {{selected_pokemon.name}} </p>
+           <p> description: {{selected_pokemon.description}} </p>
+           <p> location: {{selected_pokemon.location}} </p>
+           <p> stipend: {{selected_pokemon.stipend}} </p>
+           <p> datetime: {{selected_pokemon.datetime}} </p>
+           <p> runtime: {{selected_pokemon.runtime}} </p>
+           <p> openspots: {{selected_pokemon.openspots}} </p>
+           <p> enrolled: {{selected_pokemon.enrolled}} </p>
+
+           <form omsubmit="capture_pokemon({{selected_pokemon.id}})" name="captureForm" id="captureForm" class="card" >
+            <input id = "captureBtn" value= "Add intern" class="btn #588157 center" type="button" type="submit" onclick="capture_pokemon({{selected_pokemon.id}})"/>
+            <input name="pokemon_name" id="pokemon_name" type="text"/>
+           </form>
+             
+           <form>
+            <input id = "captureBtn" value= "View interns" class="btn #588157 center" type="button" type="submit" onclick="location.href='https://www.google.com/forms/about/'"/>
+            </form>
+         
         </div>
-      </div>
-    </div>
-  </div>
-    
-    <div>
-      <div class="col s8">
-        {% if attendees != -1%}
-          {%for attendee in attendees%}
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th><th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{attendee.intern_id}}</td>
-                    <td>{{attendee.intern_id.name}}</td>
-                </tr>
-            <tbody>
-          </table>
-          {%endfor%}
-        {%endif%}
-      </div>
-      <div class="col s8">
-        <p>Create a new Internship Here.</p>
-        <form class="col s10" method="POST" action="/home">
-          
-          <!-- <div class="row"> -->
-          <div class="input-field col s6">
-            <input name="name" type="text" class="validate">
-            <label for="Name">Name</label>
-          </div>
-          <div class="input-field col s6">
-            <input name="desc" type="text" class="validate">
-            <label for="Description">Description</label>
-          </div>
-          <div class="input-field col s6">
-            <input name="location" type="text" class="validate">
-            <label for="Location">Location</label>
-          </div>
-          <div class="input-field col s6">
-            <input placeholder="format year, month, day, hour" name="date_time" type="text" class="validate">
-            <label for="Date and Time">Date and Time</label>
-          </div>
-          <div class="input-field col s6">
-            <input name="openspots" type="text" class="validate">
-            <label for="Open Spots">Open Spots</label>
-          </div>
-            
-          <div class="row">
-            <div class="input-field col s12">
-              <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
-            </div>
-          </div> 
 
-        </form>
-      </div>
     </div>
-
-    <div class="row">
-      {% if chosen.id != -1 %}
-        <table style="width: 97%;">
-          <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Department</th>
-              <th>Course</th>
-          </tr>
-            {% for intern in interns %}
-              <tr>
-                  <td>{{ intern.school_id }}</td>
-                  <td>{{ intern.name }}</td>
-                  <td>{{ intern.dept }}</td>
-                  <td>{{ intern.course }}</td>
-                  <td>
-                    <form method="POST" action="/{{chosen.id}}/add_intern">
-                      <p>Admit to Internship</p>
-                      <!-- <input  name="ship" type="hidden" value="{{chosen.id}}3"> -->
-                      <input  name="id" type="hidden" value="{{intern.school_id}}">
-                      <button class="btn waves-effect waves-light right blue col s4" type="submit" name="action">Add Intern</button>
-                    </form>
-                  </td>
-              </tr>
-          {% endfor %}
-        </table>
-      {%endif%}
-    </div>
-
-    <!-- <div class="row">
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th><th>Description</th><th>Location</th><th>Date and Time</th><th>Availability</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for internship in internships %}
+      
+    <div class="col m7">
+        <p class="text-center">Your Pokemon</p>
+        <table>
+            <!-- Captured pokemon content here -->
             <tr>
-                <td>{{internship.name}}</td>
-                <td>{{internship.desc}}</td>
-                <td>{{internship.location}}</td>
-                <td>{{internship.date_time}}</td>
-                <td>{{internship.openspots}}</td>
-            </tr>
-          {% endfor %}
-        <tbody>
-      </table>
-    </div> -->
+                <th>Pokemon</th>
+                <th>Name</th>
+                <th>Actions</th>
+              </tr>
+              <tbody>
+              {% for Pokemon in UserPokemons %}
+              <tr>
+                <td>{{Pokemon.pokemon.name}}</td>
+                <td>{{Pokemon.name}}</td>
+                <td> <input name="{{Pokemon.name}}-new_name" id="{{Pokemon.name}}-new_name" type="text"/> <input id = "rename-{{Pokemon.name}}" class="btn #588157 left" value= "Edit" type="button" type="submit" onclick="rename({{Pokemon.id}},'{{Pokemon.name}}')"/></td>
+                <td> <input id = "release-{{Pokemon.name}}" value= "Delete" class="btn #588157 right" type="button" type="submit" onclick="release({{Pokemon.id}})"/></td>
+              </tr>
+             {% endfor %}
+              </tbody>
+        </table>
+    </div>
 
-  </div>
+</div>
+
+
+<script>
+    var pokeElem = document.getElementById('poke-{{selected_pokemon.id}}');// edit to scroll to selected pokemon
+    pokeElem.scrollIntoView();
+</script>
+
+<script>
+const capture_pokemon =  async (id) => {
+    console.log("hi");
+    var url = `/pokemon/${id}`
+    var name = document.getElementById("pokemon_name").value
+    console.log(name)
+    try{
+        console.log(url)
+     await fetch(url,{
+            method:"POST",
+            body: JSON.stringify({name}),
+            headers: {
+      "Content-Type": "application/json",
+    },
+        })
+    }
+ catch(e){
+    console.log(e)
+ }    
+ location.reload();  
+}
+
+const rename = async  (id,new_name)=> {
+var url = `/rename-pokemon/${id}`
+var name = document.getElementById(`${new_name}-new_name`).value
+try{
+    console.log(url)
+   await fetch(url,{
+        method:"POST",
+        body: JSON.stringify({name}),
+        headers: {
+  "Content-Type": "application/json",
+},
+    })
+}
+catch(e){
+console.log(e)
+}    
+location.reload();  
+}
+   
+const release = async (id) => {
+var url = `/release-pokemon/${id}`
+console.log(name)
+try{
+    await fetch(url,{
+        method:"GET",
+        headers: {
+          "Content-Type": "application/json",
+         },        
+    })
+}
+catch(e){
+console.log(e)
+}    
+location.reload();  
+}
+</script>
 
 {% endblock %}
