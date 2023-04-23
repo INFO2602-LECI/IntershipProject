@@ -137,26 +137,28 @@
     </div>
   </div>
     
-    <div>
-      <div class="col s8">
-        {% if attendees != -1%}
+  <div>
+    <div class="col s8">
+    {% if attendees != -1%}
+    <p style="font-size: larger;">Interns attending selected internship.</p>
+      <table>
+      <thead>
+        <tr>
+          <th>ID</th><th>Name</th>
+        </tr>
+      </thead>
+      <tbody>
           {%for attendee in attendees%}
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th><th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{attendee.intern_id}}</td>
-                    <td>{{attendee.intern_id.name}}</td>
-                </tr>
-            <tbody>
-          </table>
+            <tr>
+                <td>{{attendee.intern_id}}</td>
+                <td>{{attendee.intern_id.name}}</td>
+            </tr>
           {%endfor%}
-        {%endif%}
-      </div>
+        <tbody>
+      </table>
+      {%endif%}
+
+    </div>
       <div class="col s8">
         <p>Create a new Internship Here.</p>
         <form class="col s10" method="POST" action="/home">

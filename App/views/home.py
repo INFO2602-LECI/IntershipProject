@@ -180,22 +180,24 @@ def del_internship(ship_id):
 @login_required
 def admit_intern(ship_id):
     data = request.form
-    if ship_id == None:
-        flash(f"Could not locate internship!")
+    if ship_id is None:
+        flash("Could not locate internship!")
         return redirect('/home') 
-    # s= data['ship']
-    # ship= get_ship(ship_id)
-    intern= get_intern(data['id'])
-    # a parameter is being lost in translation somehow somewhere
-    if ship_id and intern:
-        attendee = add_intern_to_ship(ship_id, intern.school_id)
-        # flash(intern.name+ f" has been added to "+ ship.name +"!")
-        flash(intern.name+ f" has been added to "+ ship_id +"!")
-        return redirect('/home/'+ str(ship_id)) 
-    else:
-        flash(intern.name+ f" could not be added to internship!")
-        return redirect('/home/'+ str(ship)) 
+    intern = get_intern(data['id'])
 
+    if ship_id and intern:
+        # Check if the combination already exists
+        existing_attendant = Attendants.query.filter_by(ship_id=ship_id, intern_id=intern.school_id).first()
+        if existing_attendant:
+            flash(f"{intern.name} is already added to this internship!")
+            return redirect('/home/' + str(ship_id)) 
+        # Proceed with insertion
+        attendee = add_intern_to_ship(ship_id, intern.school_id)
+        flash(f"{intern.name} has been added to internship {ship_id}!")
+        return redirect('/home/' + str(ship_id)) 
+    else:
+        flash("Could not add intern to internship!")
+        return redirect('/home/' + str(ship_id))
 
     
 # Logout
