@@ -115,7 +115,7 @@ def update_datetime(id,date_time):
             return ship
         except ValueError:
             # Handle invalid date format error
-            flash(f"Invalid date format. Please use the format 'year/month/day'.")
+            flash(f"Invalid date format. Please use the format 'year/month/day'.  ")
             return None
     return None
 
@@ -130,14 +130,13 @@ def update_spots(id, spots):
     return None  
 
 # # Enrolled
-# def update_enrolled(id, er):
-#     ship = get_ship(id)
-#     if ship:
-#         ship.enrolled = er
-#         db.session.add(ship) 
-#         db.session.commit()
-#         return ship
-#     return None
+#def update_enrolled(id, er):
+#    ship = get_ship(id)
+#    if ship:
+#        ship.enrolled = er
+#        db.session.add(ship)
+#        return db.session.commit()
+#    return None
 
 # Delete
 def del_ship(id):

@@ -98,6 +98,6 @@ def update_datetime(id, date_time):
             return ship
         except ValueError:
             # Handle invalid date format error
-            flash(f"Invalid date format. Please use the format 'year/month/day'.")
+            flash(f"Invalid date format. Please use the format 'year/month/day'.  ")
             return None
     return None
