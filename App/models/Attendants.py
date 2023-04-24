@@ -14,7 +14,8 @@ class Attendants(db.Model):
     def __init__(self, id, ship_id, intern_id):
         self.ship_id = ship_id
         self.intern_id = intern_id
-        self.id = ship_id + intern_id
+        self.id = id
+    
 
 
     def get_json(self):
