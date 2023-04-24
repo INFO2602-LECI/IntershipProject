@@ -17,19 +17,11 @@ token = ''
 
 @login_views.route('/login', methods=['GET'])
 def login():
+    user= current_user.get_id()
+    if user:
+        flash(f'User is already logged in!')
+        return redirect(url_for('home_views.homepage'))
     return render_template('login.html')
-
-# @login_views.route('/login', methods=['POST'])
-# def loginaction():
-#     data = request.form
-#     token = authenticate(data['username'], data['password'])
-#     if not token:
-#         # return jsonify(message='bad username or password given'), 401
-#         flash(f"Username or password incorrect!")
-#         return redirect('/login')
-#     return redirect('/home')
-    #     return render_template('/login.html')
-    # return render_template('/home.html')
 
 @login_views.route("/login", methods=['POST'])
 def loginaction():
