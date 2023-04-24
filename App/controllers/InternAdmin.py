@@ -10,18 +10,23 @@ def make_ship(name, desc, location, date_time, openspots):
 #InternAdmin Controllers
 # --------------------------------------------------------------------------------
 def create_admin(username, password, name):
+    exists = get_admin_by_username(username)
+    if exists:
+        flash(f'User already exists!')
+        return None
     admin = InternAdmin(username=username, password=password, name=name)
     if admin:
         admin.username = username
         db.session.add(admin)
-        return db.session.commit()
+        db.session.commit()
+        return admin
     return None
 
 def get_admin_by_username(username):
-    return Admin.query.filter_by(username=username).first()
+    return InternAdmin.query.filter_by(username=username).first()
 
 def get_admin_by_name(name):
-    return Admin.query.filter_by(name=name).first()
+    return InternAdmin.query.filter_by(name=name).first()
 
 def get_admin(id):
     return InternAdmin.query.get(id)

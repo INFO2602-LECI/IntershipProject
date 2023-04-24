@@ -8,6 +8,8 @@ from App.controllers import (
     authenticate, 
     get_all_users,
     get_all_users_json,
+    create_admin,
+    
 )
 
 signup_views = Blueprint('signup_views', __name__, template_folder='../templates')
@@ -21,8 +23,9 @@ def signup():
 @signup_views.route('/signup', methods=['POST'])
 def signupaction():
     data = request.form
-    create_admin(data['username'], data['password'])
-    flash(f"User {data['username']} created!")
+    admin = create_admin(data['username'], data['password'], data['name'])
+    if admin:
+        flash(f"User {data['username']} created!")
     return redirect(url_for('login_views.login'))
 
 # @signup_views.route('/api/users', methods=['GET'])
