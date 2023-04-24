@@ -193,8 +193,10 @@ def admit_intern(ship_id):
             return redirect('/home/' + str(ship_id)) 
         # Proceed with insertion
         attendee = add_intern_to_ship(ship_id, intern.school_id)
-        flash(f"{intern.name} has been added to internship {ship_id}!")
-        return redirect('/home/' + str(ship_id)) 
+        # flash(intern.name+ f" has been added to "+ ship.name +"!")
+        flash(intern.name+ f" has been added to "+ str(ship_id) +"!")
+        return redirect('/home/'+ str(ship_id)) 
+
     else:
         flash("Could not add intern to internship!")
         return redirect('/home/' + str(ship_id))
