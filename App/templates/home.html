@@ -6,8 +6,7 @@
     <a href="#!" class="brand-logo center">Home</a>
     <div class="nav-wrapper">
         <ul id="nav-mobile" class="left">
-          
-          
+          <li><a href="/">Welcome</a></li>
           <li><a href="/users">Users Jinja</a></li>
           </ul><ul class="right" style="margin-right: 10px;">
           <li>
@@ -29,6 +28,7 @@
     <p style="font-size: large; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
         Welcome {{admin}}.
     </p>
+    <p>Select an internship or create an internship to begin. Interns will appearn after selection.</p>
   </div>
 
   <table style=" margin-left: -125px;">
@@ -139,7 +139,8 @@
     
     <div>
       <div class="col s8">
-      {% if attendees != -1%}
+        {% if attendees != -1%}
+        {% if chosen != -1%}
       <p style="font-size: larger;">Interns attending selected internship.</p>
         <table>
         <thead>
@@ -156,6 +157,7 @@
             {%endfor%}
           <tbody>
         </table>
+        {%endif%}
         {%endif%}
       </div>
 
@@ -202,7 +204,7 @@
 
     <div class="row">
       <!-- was supposed to not show table if -1 but still shows -->
-      {% if chosen.id != -1 %}
+      {% if chosen != -1 %}
         <table style="width: 97%;">
           <tr>
               <th>ID</th>
