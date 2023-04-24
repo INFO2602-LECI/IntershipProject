@@ -23,8 +23,8 @@ class Ship(db.Model):
             'name': self.name,
             'description': self.desc,
             'location': self.location,
-            'date/time': self.date_time,
-            'Spots Remainng': self.openspots,
+            'Date and Time': self.date_time,
+            'Spots Remaining': self.openspots,
             'Enrolled': self.enrolled
         }
         
