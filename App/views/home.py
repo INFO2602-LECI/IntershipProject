@@ -25,7 +25,9 @@ from App.controllers import (
     # update_enrolled,
     del_ship,
 
+    get_attendee,
     add_intern_to_ship,
+    del_attendee,
 )
 
 home_views = Blueprint('home_views', __name__, template_folder='../templates')
@@ -159,7 +161,7 @@ def openspots_change(ship_id):
 
 # Delete Internship - Working
 # ----------------------------------------------------------------------------------
-@home_views.route('/del_internship/<int:ship_id>', methods=['DELETE'])
+@home_views.route('/del_internship/<int:ship_id>', methods=['POST'])
 @login_required
 def del_internship(ship_id):
     ship= get_ship(ship_id)
@@ -192,7 +194,8 @@ def admit_intern(ship_id):
             flash(f"{intern.name} is already added to this internship!")
             return redirect('/home/' + str(ship_id)) 
         # Proceed with insertion
-        attendee = add_intern_to_ship(ship_id, intern.school_id)
+
+        attendee = add_intern_to_ship(ship_id, intern.school_id, intern.name)
         # flash(intern.name+ f" has been added to "+ ship.name +"!")
         flash(intern.name+ f" has been added to "+ str(ship_id) +"!")
         return redirect('/home/'+ str(ship_id)) 
@@ -201,6 +204,22 @@ def admit_intern(ship_id):
         flash("Could not add intern to internship!")
         return redirect('/home/' + str(ship_id))
 
+
+# Delete Intern from Internship - Working
+# ----------------------------------------------------------------------------------
+@home_views.route('/remove_intern/<int:ship_id>/<int:intern_id>', methods=['POST'])
+@login_required
+def delete_attendee(ship_id,intern_id):
+    ship= get_ship(ship_id)
+    person= get_intern(intern_id)
+    id =int(str(ship_id)+str(intern_id))
+    attendee = del_attendee(id)
+    if attendee:
+        flash(person.name+ f" has been deleted from "+ ship.name +"!")
+        return redirect('/home/'+ str(ship.id)) 
+    else:
+        flash(f"Internship could not be deleted!")
+        return redirect('/home/'+ str(ship.id)) 
     
 # Logout
 # --------------------------------------------------------------------------

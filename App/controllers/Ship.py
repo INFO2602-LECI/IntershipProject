@@ -1,8 +1,12 @@
 from App.models import InternAdmin, Ship, Attendants
 from App.database import db
 
-# testing
-def add_intern_to_ship(ship_id,intern_id):
+# Attendant
+
+def get_attendee(id):
+    return Attendants.query.get(id)
+
+def add_intern_to_ship(ship_id,intern_id, name):
     if ship_id == None:
         flash(f"Could not locate internship!")
         return None
@@ -10,9 +14,17 @@ def add_intern_to_ship(ship_id,intern_id):
         flash(f"Could not locate intern!")
         return None
     newid= str(ship_id)+str(intern_id)
-    attendee = Attendants(id=int(newid), ship_id=ship_id, intern_id=intern_id )
+    attendee = Attendants(id=int(newid), ship_id=ship_id, intern_id=intern_id, name=name )
     if attendee:
         db.session.add(attendee) 
+        db.session.commit()
+        return attendee
+    return None
+
+def del_attendee(id):
+    attendee = get_attendee(id)
+    if attendee:
+        db.session.delete(attendee)
         db.session.commit()
         return attendee
     return None
