@@ -1,17 +1,44 @@
 {% extends "layout.html" %}
-
-{% block title %}Home{% endblock %}
-
-{% block page %}Home{% endblock %}
-
-{% block link%}
-<ul id="nav-mobile" class="right">
-    <li><a href="/login">Admin Login</a></li>
-</ul>
+{% block title %}Leci Internships{% endblock %}
+{% block page %}
+<nav class="blue">
+  <div class="nav-wrapper">
+    <a href="#!" class="brand-logo center">Home</a>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="left">
+          <li><a href="/">Welcome</a></li>
+          <li><a href="/users">Apply Here</a></li>
+          <li><a href="/static/users">Users Jinja</a></li>
+          </ul><ul class="right" style="margin-right: 10px;">
+          <li>
+            <form class="col s12" method="POST" action="/home/logout"> 
+            <button class="blue" style="border: 0; color: white;"  type="submit" name="logout">Logout</button>
+            </form>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
 {% endblock %}
 
 
+
+              <tr><td>
+                <form class="col s6" method="POST" action="/update_location/{{chosen.id}}">
+                  <input name="location" type="text" class="validate" placeholder="Earth" style="height: 5%;">
+                  <label for="Change Location">Change Location</label>
+                  <button class="btn waves-effect waves-light right blue col s6" type="submit" name="action" style="scale: 70%;">Submit</button>
+                </form>
+                
+                <form class="col s6" method="POST" action="/update_datetime/{{chosen.id}}">
+                  <input name="dtime" type="text" class="validate" style="height: 5%;">
+                  <label for="Change Date and Time">Change Date and Time</label>
+                  <button class="btn waves-effect waves-light right blue col s6" type="submit" name="action" style="scale: 70%;">Submit</button>
+                </form>
+              </td></tr>
+
 {% block content %}
+
 
 <div class="row">
     <div class="col m2 list-container collection" style="max-height: 84vh;background-color:rgba(18, 18, 200, 0.897)">
@@ -35,6 +62,43 @@
       
             <!-- Captured pokemon content here -->
 
+      <div class="col s8">
+        <p>Create a new Internship Here.</p>
+        <form class="col s10" method="POST" action="/home">
+          
+          <!-- <div class="row"> -->
+          <div class="row">
+            <div class="input-field col s4">
+              <input name="name" type="text" class="validate">
+              <label for="Name">Name</label>
+            </div>
+            <div class="input-field col s8">
+              <input name="desc" type="text" class="validate">
+              <label for="Description">Description</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6">
+              <input name="location" type="text" class="validate">
+              <label for="Location">Location</label>
+            </div>
+            <div class="input-field col s3">
+              <input placeholder="2023/10/10 9am" name="date_time" type="text" class="validate">
+              <label for="Date and Time">Date and Time</label>
+            </div>
+            <div class="input-field col s3">
+              <input name="openspots" type="text" class="validate">
+              <label for="Open Spots">Open Spots</label>
+            </div>
+              
+            <div class="row">
+              <div class="input-field col s12">
+                <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+              </div>
+            </div> 
+          </div>
+        </form>
+      </div>
             <tbody id="result">
       
               <tr><img src="https://test.ishmaeljup.repl.co/{{selected_pokemon.id}}.jpg"/></tr>

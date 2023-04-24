@@ -13,6 +13,9 @@ def init():
     db.drop_all()
     db.create_all()
     create_user('bob', 'bobpass', 'bob')
+    create_ship('First Internship', '', 'UWI', '2023.6/10 8am',30)
+    create_intern('Patrick Star', 816000111, 'DCIT', 'COMP1602, COMP1603', 3, 3.3)
+    create_intern('Betty Boop', 816000222, 'DCIT', 'COMP2602, COMP2603', 3, 3.7)
     return jsonify(message='db initialized!')
 
 @index_views.route('/health', methods=['GET'])
