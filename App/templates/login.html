@@ -1,15 +1,14 @@
 {% extends "layout.html" %}
-{% block title %}Login{% endblock %}
+{% block title %}Leci Internships{% endblock %}
 {% block page %}
 <nav class="blue">
   <div class="nav-wrapper">
     <a href="#!" class="brand-logo center">Login</a>
     <div class="nav-wrapper">
         <ul id="nav-mobile" class="left">
-            <li><a href="/">Home</a></li>
-            <li><a href="/signup">Signup/a></li>
-            <li><a href="/users">Users Jinja</a></li>
-            <li><a href="/static/users">Users JS</a></li>
+            <li><a href="/">Back</a></li>
+            
+            
         </ul>
     </div>
   </div>
@@ -23,11 +22,12 @@
   </nav>
     <div class="row">
         <p>
-            Login using the form below
+            
           </p>
+          
     </div>
-
-    <div class="row">
+   
+    
       <form class="col s12" method="POST" action="/login">
         
         <div class="row">
@@ -42,12 +42,12 @@
         </div>
       
         <div class="row">
-          <div class="input-field col s12">
-            <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
+          <div class="input-field col s6">
+            <button class="btn waves-effect waves-light right blue" type="submit" name="action">Login</button>
           </div>
         </div> 
 
       </form>
     </div>
-
+    <div class="row" style="background-image: url('https://sta.uwi.edu/graduation/sites/default/files/graduation/slideshow/Slideshow-2-1.jpg'); background-size: cover; background-position: center; height: 100vh;">
 {% endblock %}

@@ -41,6 +41,8 @@ def update_intern(self, id, username):
         return True
     return False
 
+
+
 def delete_intern(self, id):
         intern = self.get_intern(id)
         if intern:
@@ -48,6 +50,7 @@ def delete_intern(self, id):
             db.session.commit()
             return True
         return False
+
 
 
 
