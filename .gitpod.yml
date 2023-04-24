@@ -1,7 +1,5 @@
 tasks:
   - init: install -f & pip install -r requirements.txt
-  #attempt to fix init again
-  - init: flask init & flask run
     command: flask init & flask run
 
 ports:
