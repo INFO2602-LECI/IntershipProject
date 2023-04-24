@@ -83,7 +83,8 @@ def create_app(config={}):
     setup_jwt(app)
     login_manager.init_app(app)
     login_manager.login_view = "login_page"
-    with app.app_context():
-        db.create_all()
+    # added this cause the wsgi wasnt making the database
+    # with app.app_context():
+    #     db.create_all()
     app.app_context().push()
     return app
