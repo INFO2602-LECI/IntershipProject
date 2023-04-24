@@ -24,8 +24,7 @@
     </div>
 
     <div class="row">
-      <form class="col s12" method="POST" action="/signupaction">
-        
+      <form class="col s12" method="POST" action="/signup">
         <div class="row">
           <div class="input-field col s6">
             <input placeholder="Username" name="username" type="text" class="validate">
@@ -36,7 +35,11 @@
             <label for="password">Password</label>
           </div>
         </div>
-      
+        <div class="input-field col s6">
+          <input placeholder="Name" name="name" type="text" class="validate">
+          <label for="name">Name</label>
+        </div>
+      </div>
         <div class="row">
           <div class="input-field col s12">
             <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
@@ -46,7 +49,7 @@
       </form>
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <table>
         <thead>
           <tr>
@@ -62,6 +65,6 @@
           {% endfor %}
         <tbody>
       </table>
-    </div>
+    </div> -->
 
 {% endblock %}
