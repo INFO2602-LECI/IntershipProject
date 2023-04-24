@@ -7,8 +7,8 @@
     <div class="nav-wrapper">
         <ul id="nav-mobile" class="left">
           
+          <li><a href="/">Welcome</a></li>
           <li><a href="/signup">Signup</a></li>
-          
           <li><a href="/home">Home</a></li>
           <li><a href="/users">Users</a></li>
           </ul>
@@ -21,12 +21,14 @@
 
 {% block content %}
     <div class="row">
-      <p style="font-size: larger;">
+      <p style="font-size: larger;">Apply Today!</p>
+      <p>An internship is a GREAT way to get experience! Students apply below.</p>
+      <!-- <p style="font-size: larger;">
           This page displays all Users and Interns. You can create new accounts right below here.
-      </p>
+      </p> -->
     </div>
 
-    <div class="row">
+    <!-- <div class="row">
       <form class="col s12" method="POST" action="/users">
         
         <div class="row" >
@@ -55,9 +57,9 @@
         </div> 
 
       </form>
-    </div>
+    </div> -->
 
-    <div class="row" style="margin-left: 100px; margin-right: 100px; padding: 25;">
+    <!-- <div class="row" style="margin-left: 100px; margin-right: 100px; padding: 25;">
       <table>
         <thead>
           <tr>
@@ -74,16 +76,16 @@
           {% endfor %}
         <tbody>
       </table>
-    </div>
+    </div> -->
 
 
     <!-- spacer -->
-    <div class="row" style="padding: 50px;">
+    <!-- <div class="row" style="padding: 50px;">
       <p>         </p>
       <p style="font-size: larger;">Interns can enter their information below.</p>
-    </div>
+    </div> -->
 
-    <div class="row" style="padding: 30px; padding-right: 50px; margin-left: 55px;">
+    <div class="row" style="padding: 30px; padding-right: 50px; ">
       <form class="col s12" method="POST" action="/users/interns">
         <div class="row" >
           
@@ -104,7 +106,7 @@
         </div>
 
         <div class="row" >
-          <div class="input-field col s6">
+          <div class="input-field col s7">
             <input placeholder="COMP 1602" name="course" type="text" class="validate">
             <label for="Courses">Courses</label>
           </div>
@@ -118,7 +120,7 @@
             <input placeholder="3.7" name="GPA" type="text" class="validate">
             <label for="GPA">GPA</label>
           </div>
-          <div class="col s1">
+          <div class="col s2">
             <div class="input-field">
               <button class="btn waves-effect waves-light right blue" type="submit" name="action">Submit</button>
             </div>
@@ -126,7 +128,7 @@
         </div>
       </form>
       
-      <div class="row">  
+      <!-- <div class="row">  
       <table style="width: 97%;">
         <tr>
             <th>ID</th>
@@ -143,6 +145,7 @@
             </tr>
         {% endfor %}
       </table>
+      </div> -->
     </div>
       
 
