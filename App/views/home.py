@@ -204,8 +204,7 @@ def admit_intern(ship_id):
         attendee = add_intern_to_ship(ship_id, intern.school_id, intern.name)
         update = ship.enrolled + 1;
         ship = update_enrolled(ship_id, update)
-        # flash(intern.name+ f" has been added to "+ ship.name +"!")
-        flash(intern.name+ f" has been added to "+ str(ship_id) +"!")
+        flash(intern.name+ f" has been added to "+ ship.name +"!")
         return redirect('/home/'+ str(ship_id)) 
 
     else:
