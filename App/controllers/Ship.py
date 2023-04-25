@@ -1,5 +1,7 @@
 from App.models import InternAdmin, Ship, Attendants
 from App.database import db
+import datetime
+from flask import flash
 
 # Attendant
 
@@ -99,14 +101,25 @@ def update_location(id, loc):
     return None  
 
 # Date and Time
-def update_datetime(id, dtime):
+
+def update_datetime(id,date_time):
     ship = get_ship(id)
     if ship:
-        ship.date_time = dtime
-        db.session.add(ship)
-        db.session.commit()
-        return ship
-    return None  
+        try:
+            # Parse the date string to a datetime object
+            date_time_obj = datetime.datetime.strptime(date_time, "%Y/%m/%d")
+            # Format the datetime object back to a string in the desired format
+            formatted_date_time = date_time_obj.strftime("%Y/%m/%d")
+            ship.date_time = formatted_date_time
+            db.session.add(ship)
+            db.session.commit()
+            return ship
+        except ValueError:
+            # Handle invalid date format error
+            flash(f"Invalid date format. Please use the format 'year/month/day'.  ")
+            return None
+    return None
+
 
 # Open Spots
 def update_spots(id, spots):
@@ -119,6 +132,7 @@ def update_spots(id, spots):
     return None  
 
 # # Enrolled
+
 def update_enrolled(id, er):
     ship = get_ship(id)
     if ship:
@@ -127,6 +141,7 @@ def update_enrolled(id, er):
         db.session.commit()
         return ship
     return None
+
 
 # Delete
 def del_ship(id):
