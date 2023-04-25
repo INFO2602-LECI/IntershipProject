@@ -101,6 +101,7 @@ def update_location(id, loc):
     return None  
 
 # Date and Time
+
 def update_datetime(id,date_time):
     ship = get_ship(id)
     if ship:
@@ -119,6 +120,7 @@ def update_datetime(id,date_time):
             return None
     return None
 
+
 # Open Spots
 def update_spots(id, spots):
     ship = get_ship(id)
@@ -130,13 +132,16 @@ def update_spots(id, spots):
     return None  
 
 # # Enrolled
-#def update_enrolled(id, er):
-#    ship = get_ship(id)
-#    if ship:
-#        ship.enrolled = er
-#        db.session.add(ship)
-#        return db.session.commit()
-#    return None
+
+def update_enrolled(id, er):
+    ship = get_ship(id)
+    if ship:
+        ship.enrolled = er
+        db.session.add(ship) 
+        db.session.commit()
+        return ship
+    return None
+
 
 # Delete
 def del_ship(id):
