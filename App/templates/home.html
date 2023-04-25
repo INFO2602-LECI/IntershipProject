@@ -1,14 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}Leci Internships{% endblock %}
 {% block page %}
-<nav class="blue">
+<!-- <nav class="blue">
   <div class="nav-wrapper">
     <a href="#!" class="brand-logo center">Home</a>
     <div class="nav-wrapper">
         <ul id="nav-mobile" class="left">
           <li><a href="/">Welcome</a></li>
-          <!-- <li><a href="/users">Apply Here</a></li> -->
-          <li><a href="static/users">Users Jinja</a></li>
+          <li><a href="/static/users">Users Jinja</a></li>
           </ul><ul class="right" style="margin-right: 10px;">
           <li>
             <form class="col s12" method="POST" action="/home/logout"> 
@@ -18,7 +17,8 @@
         </ul>
     </div>
   </div>
-</nav>
+</nav> -->
+Home
 {% endblock %}
 
 
@@ -111,7 +111,9 @@
                 </form>
                 
                 <form class="col s6" method="POST" action="/update_datetime/{{chosen.id}}">
-                  <input name="dtime type="text" class="validate" style="height: 5%;">
+
+                  <input name="dtime" type="text" class="validate" placeholder="year/month/date" style="height: 5%;">
+
                   <label for="Change Date and Time">Change Date and Time</label>
                   <button class="btn waves-effect waves-light right blue col s6" type="submit" name="action" style="scale: 70%;">Submit</button>
                 </form>
@@ -189,7 +191,7 @@
               <label for="Location">Location</label>
             </div>
             <div class="input-field col s3">
-              <input placeholder="format year, month, day, hour" name="date_time" type="text" class="validate">
+              <input placeholder="2023/10/10 9am" name="date_time" type="text" class="validate">
               <label for="Date and Time">Date and Time</label>
             </div>
             <div class="input-field col s3">

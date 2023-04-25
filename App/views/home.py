@@ -22,7 +22,7 @@ from App.controllers import (
     update_location,
     update_datetime,
     update_spots,
-    # update_enrolled,
+    update_enrolled,
     del_ship,
 
     get_attendee,
@@ -33,7 +33,7 @@ from App.controllers import (
 home_views = Blueprint('home_views', __name__, template_folder='../templates')
 
 
-# Home Page
+# Home Page - Working
 #----------------------------------------------------------------------------
 @home_views.route('/home', methods=['GET'])
 @login_required
@@ -48,7 +48,7 @@ def homepage():
     name = admin.name #get admin name
     return render_template('home.html', admin = name, scrollers= ships, chosen=chosen, interns=interns)
 
-# Scroll Bar Setup
+# Scroll Bar Setup - Working
 # ----------------------------------------------------------------------------------
 @home_views.route('/home/<int:ship_id>', methods=['GET'])
 @login_required
@@ -81,8 +81,10 @@ def make_internship():
         flash(f"Internship not created!")
     return redirect('/home/'+ str(ship.id))
 
+
+
 # UPDATE INTERNSHIP ROUTES
-# Update Internship Name
+# Update Internship Name - Working
 # ----------------------------------------------------------------------------------
 @home_views.route('/update_name/<int:ship_id>', methods=['POST'])
 @login_required
@@ -128,7 +130,7 @@ def location_change(ship_id):
     return redirect('/home')
 
 
-# Update Internship Date and time - NOT WORKING
+# Update Internship Date and Time - NOT WORKING
 # ----------------------------------------------------------------------------------
 @home_views.route('/update_datetime/<int:ship_id>', methods=['POST'])
 @login_required
@@ -176,7 +178,7 @@ def del_internship(ship_id):
         return redirect('/home/'+ str(ship.id)) 
 
 
-# Add Intern to Internship - 
+# Add Intern to Internship - Working
 # ----------------------------------------------------------------------------------
 @home_views.route('/add_intern/<int:ship_id>', methods=['POST'])
 @login_required
@@ -186,6 +188,10 @@ def admit_intern(ship_id):
         flash("Could not locate internship!")
         return redirect('/home') 
     intern = get_intern(data['id'])
+    ship = get_ship(ship_id) 
+    if ship.enrolled == ship.openspots:
+        flash(ship.name+ f" is full!")
+        return redirect('/home/'+ str(ship_id)) 
 
     if ship_id and intern:
         # Check if the combination already exists
@@ -196,8 +202,9 @@ def admit_intern(ship_id):
         # Proceed with insertion
 
         attendee = add_intern_to_ship(ship_id, intern.school_id, intern.name)
-        # flash(intern.name+ f" has been added to "+ ship.name +"!")
-        flash(intern.name+ f" has been added to "+ str(ship_id) +"!")
+        update = ship.enrolled + 1;
+        ship = update_enrolled(ship_id, update)
+        flash(intern.name+ f" has been added to "+ ship.name +"!")
         return redirect('/home/'+ str(ship_id)) 
 
     else:
@@ -215,13 +222,15 @@ def delete_attendee(ship_id,intern_id):
     id =int(str(ship_id)+str(intern_id))
     attendee = del_attendee(id)
     if attendee:
+        update = ship.enrolled - 1;
+        ship = update_enrolled(ship_id, update)
         flash(person.name+ f" has been deleted from "+ ship.name +"!")
         return redirect('/home/'+ str(ship.id)) 
     else:
         flash(f"Internship could not be deleted!")
         return redirect('/home/'+ str(ship.id)) 
     
-# Logout
+# Logout - Working
 # --------------------------------------------------------------------------
 @home_views.route("/home/logout", methods=["POST"])
 @login_required
